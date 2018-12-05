@@ -1,0 +1,1621 @@
+
+
+---
+title: "visNetwork"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+## R MarkdownPackage ‘visNetwork’
+December 5, 2018
+Title Network Visualization using 'vis.js' Library
+Version 2.0.5
+Date 2018-12-05
+Maintainer Benoit Thieurmel <benoit.thieurmel@datastorm.fr>
+Description Provides an R interface to the 'vis.js' JavaScript charting
+library. It allows an interactive visualization of networks.
+BugReports https://github.com/datastorm-open/visNetwork/issues
+URL http://datastorm-open.github.io/visNetwork/
+Depends R (>= 3.0)
+Imports htmlwidgets, htmltools, jsonlite, magrittr, utils, methods,
+grDevices, stats
+License MIT + file LICENSE
+Suggests knitr, rmarkdown, webshot, igraph, rpart, shiny,
+shinyWidgets, colourpicker, sparkline, ggraph, flashClust
+VignetteBuilder knitr, rmarkdown, webshot
+RoxygenNote 6.0.1
+NeedsCompilation no
+Author Almende B.V. [aut, cph] (vis.js library in htmlwidgets/lib,
+http://visjs.org, http://www.almende.com/home),
+Benoit Thieurmel [aut, cre] (R interface),
+Titouan Robert [aut, ctb]
+Repository CRAN
+Date/Publication 2018-12-05 08:40:03 UTC
+R topics documented:
+addExport..... . . 3
+addFontAwesome.... . . . . . . 4
+addIonicons..... . 5
+visClusteringByColor.... . . . . 5
+1
+2 R topics documented:
+visClusteringByConnection.... . 6
+visClusteringByGroup.... . . . 7
+visClusteringByHubsize.... . . 8
+visClusteringOutliers.... . . . . 9
+visConfigure..... . 9
+visDocumentation.... . . . . . . 11
+visEdges..... . . . 11
+visEvents..... . . 16
+visExport..... . . 20
+visFit..... . . . . 21
+visFocus..... . . . 22
+visGetBoundingBox.... . . . . 23
+visGetConnectedEdges.... . . . 24
+visGetConnectedNodes.... . . . 25
+visGetEdges..... . 26
+visGetNodes..... . 27
+visGetPositions....28
+visGetScale..... . 29
+visGetSelectedEdges.... . . . . 30
+visGetSelectedNodes.... . . . . 31
+visGetSelection....32
+visGetViewPosition.... . . . . . 33
+visGroups..... . . 34
+visHclust..... . . 35
+visHierarchicalLayout.... . . . . 37
+visIgraphLayout....39
+visInteraction..... 41
+visLayout..... . . 44
+visLegend..... . . 45
+visMoveNode..... 47
+visNearestNodes.... . . . . . . 48
+visNetwork..... . 49
+visNetwork-collapse.... . . . . 53
+visNetwork-igraph.... . . . . . 55
+visNetwork-shiny.... . . . . . . 57
+visNetwork-treeModule.... . . . 58
+visNetworkEditor.... . . . . . . 61
+visNetworkEditor-module.... . 62
+visNodes..... . . 64
+visOptions..... . . 68
+visPhysics..... . . 73
+visRedraw..... . . 77
+visRemoveEdges.... . . . . . . 78
+visRemoveNodes.... . . . . . . 79
+visSave..... . . . 80
+visSelectEdges....81
+visSelectNodes....82
+visSetData..... . . 83
+addExport 3
+visSetOptions..... 84
+visSetSelection....85
+visSetTitle..... . . 86
+visStabilize..... . 87
+visStartSimulation.... . . . . . . 88
+visStopSimulation.... . . . . . . 88
+visStorePositions.... . . . . . . 89
+visTree..... . . . 90
+visTreeEditor..... 93
+visUnselectAll..... 94
+visUpdateEdges....95
+visUpdateNodes....96
+%>%..... . . . . 97
+Index 98
+addExport Add libraries dependencies used in export visExport
+#### Description
+Add libraries dependencies used in export visExport
+#### Usage
+<pre><code>
+addExport(graph, pdf = TRUE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+pdf : boolean. Add jsPDF or not ?
+Value
+graph htmlwidget with dependencies attached.
+4 addFontAwesome
+addFontAwesome Use fontAwesome icons in visNetwork graph
+#### Description
+Add Font-Awesome for styling our graph with beautiful, professional icons. Please note that you’ll
+already have these icons if using Shiny. Can also use addIonicons
+#### Usage
+<pre><code>
+addFontAwesome(graph)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+Value
+graph htmlwidget with Font-Awesome dependencies attached.
+#### Examples
+```{r}
+# use fontAwesome icons using groups or nodes options
+# font-awesome is not part of dependencies. use addFontAwesome() if needed.
+# https://fontawesome.com/v4.7.0/
+# Version in package (and compatible with vis.js) : 4.7.0
+# cheatsheet available in package:
+# system.file("fontAwesome/Font_Awesome_Cheatsheet.pdf", package = "visNetwork")
+# definition in groups
+nodes <- data.frame(id = 1:3, group = c("B", "A", "B"))
+edges <- data.frame(from = c(1,2), to = c(2,3))
+visNetwork(nodes, edges) %>%
+visGroups(groupname = "A", shape = "icon", icon = list(code = "f0c0", size = 75)) %>%
+visGroups(groupname = "B", shape = "icon", icon = list(code = "f007", color = "red")) %>%
+addFontAwesome()
+```
+```{r}
+# definition in nodes
+nodes <- data.frame(id = 1:3, shape = "icon", icon.face = 'FontAwesome',
+icon.code = "f0c0")
+edges <- data.frame(from = c(1,2), to = c(1,3))
+visNetwork(nodes, edges) %>%
+addFontAwesome()
+```
+addIonicons Use Ionicons in visNetwork graph
+#### Description
+Add Ionicons for styling our graph with beautiful, professional icons. See Cheatsheet to get CSS
+content code. Can also use addFontAwesome
+#### Usage
+<pre><code>
+addIonicons(graph)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+* ``Value`` : graph htmlwidget with Ionicons dependencies attached.
+#### Examples
+```{r}
+nodes <- data.frame(id = 1:3, group = c("B", "A", "B"))
+edges <- data.frame(from = c(1,2), to = c(2,3))
+visNetwork(nodes, edges) %>%
+visGroups(groupname = "A", shape = "icon",
+icon = list(face ='Ionicons', code = "f101", size = 75)) %>%
+visGroups(groupname = "B", shape = "icon",
+icon = list(face ='Ionicons', code = "f100", color = "red")) %>%
+addIonicons()
+```
+visClusteringByColor Network visualization clustering options - by color
+#### Description
+Network visualization clustering options - by color.
+#### Usage
+<pre><code>
+visClusteringByColor(graph, colors, label = "Cluster on color : ",
+shape = "database", force = FALSE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+* ``colors`` : Character/vector. colors we want to cluster
+label : Character. Label put before value(s). See example
+shape : Character. Shape of cluster(s) if different shapes between nodes or force = T.
+"database" per default
+force : If force = FALSE, Set shape of nodes if all equal, else directly defaut shape
+#### Examples
+```{r}
+set.seed(124)
+nodes <- data.frame(id = 1:10, color = c(rep("blue", 6), rep("red", 3), rep("green", 1)))
+edges <- data.frame(from = round(runif(6)*10), to = round(runif(6)*10))
+visNetwork(nodes, edges) %>%
+visClusteringByColor(colors = c("blue"))
+nodes <- data.frame(id = 1:10, label = paste("Label", 1:10),
+group = sample(c("A", "B"), 10, replace = TRUE))
+edges <- data.frame(from = c(2,5,10), to = c(1,2,10))
+visNetwork(nodes, edges) %>%
+visGroups(groupname = "A", color = "red", shape = "square") %>%
+visGroups(groupname = "B", color = "yellow", shape = "triangle") %>%
+visClusteringByColor(colors = c("red"), label = "With color ") %>%
+visClusteringByGroup(groups = c("B"), label = "Group : ") %>%
+visLegend()
+visNetwork(nodes, edges) %>%
+visGroups(groupname = "A", color = "red", shape = "triangle") %>%
+visGroups(groupname = "B", color = "yellow", shape = "triangle") %>%
+visClusteringByGroup(groups = c("A","B")) %>%
+visLegend()
+```
+visClusteringByConnection
+Network visualization clustering options - by node id
+#### Description
+Network visualization clustering options - by node id
+#### Usage
+<pre><code>
+visClusteringByConnection(graph, nodes)
+visClusteringByGroup 7
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+nodes : Character/vector. id of nodes we want to cluster
+#### Examples
+```{r}
+set.seed(124)
+nodes <- data.frame(id = 1:10, color = c(rep("blue", 6), rep("red", 3), rep("green", 1)))
+edges <- data.frame(from = round(runif(6)*10), to = round(runif(6)*10))
+visNetwork(nodes, edges) %>%
+visClusteringByConnection(nodes = 9)
+```
+visClusteringByGroup Network visualization clustering options - by group
+#### Description
+Network visualization clustering options - by group.
+#### Usage
+<pre><code>
+visClusteringByGroup(graph, groups, label = "Cluster on group : ",
+shape = "database", color = "grey", force = FALSE, scale_size = TRUE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+groups : Character/vector. groups we want to cluster
+label : Character. Label put before value(s). See example
+shape : Character. Shape of cluster(s) if different shapes between nodes or force = T.
+"database" per default
+color : Character. Color of cluster(s) if different colors between nodes or force = T.
+"grey" per default
+force : If force = FALSE, Set shape and color of nodes if all equal, else directly
+defaut shape and color
+scale_size : Set size based on cluster population ? Default to TRUE.
+8 visClusteringByHubsize
+#### Examples
+```{r}
+nodes <- data.frame(id = 1:10, label = paste("Label", 1:10),
+group = sample(c("A", "B"), 10, replace = TRUE))
+edges <- data.frame(from = c(2,5,10), to = c(1,2,10))
+visNetwork(nodes, edges) %>%
+visGroups(groupname = "A", color = "red", shape = "database") %>%
+visGroups(groupname = "B", color = "yellow", shape = "triangle") %>%
+visClusteringByGroup(groups = c("B"), label = "Group : ",
+shape = "ellipse", color = "blue", force = TRUE) %>%
+visLegend()
+```
+visClusteringByHubsize
+Network visualization clustering options - by hubsize
+#### Description
+Network visualization clustering options - by hubsize
+#### Usage
+<pre><code>
+visClusteringByHubsize(graph, size = NULL)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+size : Integer. This method checks all nodes in the network and those with a equal or
+higher amount of edges than specified with size argument. If size is null (defaut),
+the size will be determined as the average value plus two standard deviations.
+#### Examples
+```{r}
+set.seed(124)
+nodes <- data.frame(id = 1:10, color = c(rep("blue", 6), rep("red", 3), rep("green", 1)))
+edges <- data.frame(from = round(runif(6)*10), to = round(runif(6)*10))
+visNetwork(nodes, edges) %>%
+visClusteringByHubsize()
+visNetwork(nodes, edges) %>%
+visClusteringByHubsize(size = 2)
+```
+visClusteringOutliers Network visualization clustering options - outliers
+#### Description
+Network visualization clustering options - outliers
+#### Usage
+<pre><code>
+visClusteringOutliers(graph, clusterFactor = 0.9, stabilize = FALSE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+clusterFactor : Number, from 0 to 1. 0.9 by default
+stabilize : Boolean, default to false
+#### Examples
+```{r}
+nodes <- data.frame(id = 1:10)
+edges <- data.frame(from = c(1,1,10,2,6,7,8,9,10),
+to = c(2,3,4,5,2,5,6,7,9))
+visNetwork(nodes, edges) %>%
+visClusteringOutliers(1)
+visConfigure Network visualization configure options
+#### Description
+Network visualization configure options. For full documentation, have a look at visDocumentation.
+#### Usage
+<pre><code>
+visConfigure(graph, enabled = NULL, filter = NULL, container = NULL,
+showButton = NULL)
+10 visConfigure
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+enabled : Boolean. Default to true. Toggle the configuration interface on or off. This is
+an optional parameter. If left undefined and any of the other properties of this
+object are defined, this will be set to true.
+filter : String, Array, Boolean, Function. Default to true. When a boolean, true gives
+you all options, false will not show any. If a string is supplied, any combination
+of the following is allowed: nodes, edges, layout, interaction, manipulation,
+physics, selection, renderer. Feel free to come up with a fun seperating character.
+Finally, when supplied an array of strings, any of the previously mentioned fields
+are accepted.
+container : DOM element. This allows you to put the configure list in another HTML
+container than below the network.
+showButton : Boolean. Default to true. Show the generate options button at the bottom of
+the configurator.
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visConfigure, visTree, visNetworkEditor
+#### Examples
+```{r}
+## Not run:
+nodes <- data.frame(id = 1:3, title = paste0("<p>", 1:3,"<br> tooltip</p>"))
+edges <- data.frame(from = c(1,2), to = c(1,3))
+visNetwork(nodes, edges) %>%
+visConfigure(enabled = TRUE, filter = "interaction")
+# using visNetworkEditor
+custom_network <- visNetworkEditor(object = network)
+custom_network
+custom_network <- visNetworkEditor(object = network, filter = "nodes,edges")
+custom_network
+## End(Not run)
+visDocumentation 11
+visDocumentation View full documentation of vis.js on network
+#### Description
+View full documentation of vis.js on network
+#### Usage
+<pre><code>
+visDocumentation(viewer = getOption("viewer"))
+</code></pre>
+#### Arguments
+viewer : Set to NULL to open in a browser
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+# minimal example
+## Not run:
+visDocumentation()
+visDocumentation(NULL)
+## End(Not run)
+visEdges Network visualization edges options
+#### Description
+Network visualization edges options. For full documentation, have a look at visDocumentation.
+12 visEdges
+#### Usage
+<pre><code>
+visEdges(graph, title = NULL, value = NULL, label = NULL, length = NULL,
+width = NULL, dashes = NULL, hidden = NULL, hoverWidth = NULL,
+id = NULL, physics = NULL, selectionWidth = NULL,
+selfReferenceSize = NULL, labelHighlightBold = NULL, color = NULL,
+font = NULL, arrows = NULL, arrowStrikethrough = NULL, smooth = NULL,
+shadow = NULL, scaling = NULL, widthConstraint = NULL, chosen = NULL)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+title : String. Default to undefined. The title is shown in a pop-up when the mouse
+moves over the edge.
+value : Number. Default to undefined. When a value is set, the edges’ width will be
+scaled using the options in the scaling object defined above.
+label : String. Default to undefined. The label of the edge. HTML does not work in
+here because the network uses HTML5 Canvas.
+length : Number. Default to undefined. The physics simulation gives edges a spring
+length. This value can override the length of the spring in rest.
+* ``width`` :   Number. Default to 1. The width of the edge. If value is set, this is not used.
+dashes : Array or Boolean. Default to false. When true, the edge will be drawn as
+a dashed line. You can customize the dashes by supplying an Array. Array
+formart: Array of numbers, gap length, dash length, gap length, dash length, ...
+etc. The array is repeated until the distance is filled. When using dashed lines in
+IE versions older than 11, the line will be drawn straight, not smooth.
+hidden : Boolean. Default to false. When true, the edge is not drawn. It is part still part
+of the physics simulation however!
+hover* ``width`` :   Number or Function. Default to 0.5. Assuming the hover behaviour is enabled
+in the interaction module, the hoverWidth determines the width of the edge when
+the user hovers over it with the mouse. If a number is supplied, this number will
+be added to the width. Because the width can be altered by the value and the
+scaling functions, a constant multiplier or added value may not give the best
+results. To solve this, you can supply a function.
+id : String. Default to undefined. The id of the edge. The id is optional for edges.
+When not supplied, an UUID will be assigned to the edge.
+physics : Boolean. Default to true. When true, the edge is part of the physics simulation.
+When false, it will not act as a spring.
+selection* ``width`` :   Number or Function. Default to 1. The selectionWidth determines the width
+of the edge when the edge is selected. If a number is supplied, this number will
+be added to the width. Because the width can be altered by the value and the
+scaling functions, a constant multiplier or added value may not give the best
+results. To solve this, you can supply a function.
+selfReferenceSize
+: Number. Default to false. When the to and from nodes are the same, a circle
+is drawn. This is the radius of that circle.
+visEdges 13
+labelHighlightBold
+: Boolean. Default to true. Determines whether or not the label becomes bold
+when the edge is selected.
+color : Named list or String. Default to named list. Color information of the edge
+in every situation. Can be ’rgba(120,32,14,1)’, ’#97C2FC’ (hexa notation on 7
+char without transparency) or ’red’.
+-  "color" : String. Default to ’#848484. The color of the edge when it is
+not selected or hovered over (assuming hover is enabled in the interaction
+module).
+-  "highlight " : String. Default to ’#848484’. The color the edge when it is
+selected.
+-  "hover" : String. Default to ’#848484’. The color the edge when the mouse
+hovers over it (assuming hover is enabled in the interaction module).
+-  "inherit" : String or Boolean. Default to ’from’. When color, highlight or
+hover are defined, inherit is set to false! Supported options are: true, false,
+’from’,’to’,’both’.
+-  "opacity" : Number. Default to 1.0. It can be useful to set the opacity of an
+edge without manually changing all the colors. The allowed range of the
+opacity option is between 0 and 1.
+font : Named list or String. This object defines the details of the label. A shorthand
+is also supported in the form ’size face color’ for example: ’14px arial red’
+-  "color" : String. Default to ’#343434’. Color of the label text.
+-  "size" : Number. Default to 14. Size of the label text.
+-  "face" : String. Default to ’arial. Font face (or font family) of the label text.
+-  "background" : String. Default to undefined. When not undefined but a
+color string, a background rectangle will be drawn behind the label in the
+supplied color.
+-  "strokeWidth" : Number. Default to 2. As an alternative to the background
+rectangle, a stroke can be drawn around the text. When a value higher than
+0 is supplied, the stroke will be drawn.
+-  "strokeColor" : String. Default to ’#ffffff’. This is the color of the stroke
+assuming the value for stroke is higher than 0.
+-  "align" : String. Default to ’horizontal’. Possible options: ’horizontal’,’top’,’middle’,’bottom’.
+The alignment determines how the label is aligned over the edge. The default
+value horizontal aligns the label horizontally, regardless of the orientation
+of the edge. When an option other than horizontal is chosen, the label
+will align itself according to the edge.
+-  "vadjust, multi, bold, ital, boldital, mono"See visDocumentation
+arrows : Named list or String. To draw an arrow with default settings a string can be
+supplied. For example: ’to, from,middle’ or ’to;from’, any combination with
+any seperating symbol is fine. If you want to control the size of the arrowheads,
+you can supply an object.
+-  "to" : Named list or Boolean. Default to Named list. When true, an arrowhead
+on the ’to’ side of the edge is drawn, pointing to the ’to’ node with
+default settings. To customize the size of the arrow, supply an object.
+14 visEdges
+– "enabled" : Boolean. Default to false. Toggle the arrow on or off.
+This option is optional, if undefined and the scaleFactor property is set,
+enabled will be set to true.
+– "scaleFactor" : Number. Default to 1. The scale factor allows you to
+change the size of the arrowhead.
+– "type" : Character. Default to ’arrow’. The type of endpoint. Also
+possible is ’circle’.
+-  "middle" : Named list or Boolean. Default to Named list. Exactly the same
+as the to object but with an arrowhead in the center node of the edge.
+-  "from " : Named list or Boolean. Default to Named list. Exactly the same
+as the to object but with an arrowhead at the from node of the edge.
+arrowStrikethrough
+: Boolean. Default to True. When false, the edge stops at the arrow. This can be
+useful if you have thick lines and you want the arrow to end in a point. Middle
+arrows are not affected by this.
+smooth : Boolean | named list. Default to named list. When true, the edge is drawn as a
+dynamic quadratic bezier curve. The drawing of these curves takes longer than
+that of straight curves but it looks better.
+-  "enabled" : Boolean. Default to true. Toggle smooth curves on and off.
+This is an optional option. If any of the other properties in this object are
+set, this option will be set to true.
+-  "type" : String. Default to ’dynamic’. Possible options: ’dynamic’, ’continuous’,
+’discrete’, ’diagonalCross’, ’straightCross’, ’horizontal’, ’vertical’,
+’curvedCW’, ’curvedCCW’, ’cubicBezier’.
+-  "roundness" : Number. Default to 0.5. Accepted range: 0 .. 1.0. This
+parameter tweaks the roundness of the smooth curves for all types EXCEPT
+dynamic.
+-  "forceDirection" : String or Boolean. Default to false. Accepted options:
+[’horizontal’, ’vertical’, ’none’]. This options is only used with the cubicBezier
+curves. When true, horizontal is chosen, when false, the direction
+that is larger (x distance between nodes vs y distance between nodes)
+is used. If the x distance is larger, horizontal. This is ment to be used with
+hierarchical layouts.
+shadow : Boolean | named list. Default to false. When true, the edges casts a shadow
+using the default settings. This can be further refined by supplying a list
+-  "enabled" : Boolean. Default to false. Toggle the casting of shadows. If this
+option is not defined, it is set to true if any of the properties in this object
+are defined.
+-  "color" : String. Default to ’rgba(0,0,0,0.5)’. The color of the shadow as
+a string. Supported formats are ’rgb(255,255,255)’, ’rgba(255,255,255,1)’
+and ’#FFFFFF’.
+-  "size" : Number. Default to 10. The blur size of the shadow.
+-  "x" : Number. Default to 5. The x offset.
+-  "y" : Number. Default to 5. The y offset.
+scaling : Named list. If the value option is specified, the size of the edges will be scaled
+according to the properties in this object.
+visEdges 15
+-  "min" : Number. Default to 10. If edges have a value, their sizes are
+determined by the value, the scaling function and the min max values.
+-  "max" : Number. Default to 30. This is the maximum allowed size when
+the edges are scaled using the value option.
+-  "label" : Named list or Boolean. Default to Named list. This can be false
+if the label is not allowed to scale with the node. If true it will scale using
+default settigns. For further customization, you can supply an object.
+– "enabled" : Boolean. Default to false. Toggle the scaling of the label
+on or off. If this option is not defined, it is set to true if any of the
+properties in this object are defined.
+– "min" : Number. Default to 14. The minimum font-size used for labels
+when scaling.
+– "max" : Number. Default to 30. The maximum font-size used for labels
+when scaling.
+– "maxVisible" : Number. Default to 30. When zooming in, the font is
+drawn larger as well. You can limit the perceived font size using this
+option. If set to 30, the font will never look larger than size 30 zoomed
+at 100%.
+– "drawThreshold" : Number. Default to 5. When zooming out, the font
+will be drawn smaller. This defines a lower limit for when the font is
+drawn. When using font scaling, you can use this together with the
+maxVisible to first show labels of important nodes when zoomed out
+and only show the rest when zooming in.
+-  "customScalingFunction" : Function. If nodes have value fields, this function
+determines how the size of the nodes are scaled based on their values.
+widthConstraint
+: Number, boolean or list. If false (defaut), no widthConstraint is applied. If a
+number is specified, the maximum width of the edge’s label is set to the value.
+The edge’s label’s lines will be broken on spaces to stay below the maximum.
+-  "maximum" : Boolean. If a number is specified, the maximum width of the
+edge’s label is set to the value. The edge’s label’s lines will be broken on
+spaces to stay below the maximum.
+chosen : See visDocumentation
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+16 visEvents
+#### Examples
+```{r}
+nodes <- data.frame(id = 1:3)
+edges <- data.frame(from = c(1,2), to = c(1,3))
+# arrows
+visNetwork(nodes, edges) %>% visEdges(arrows = 'from')
+visNetwork(nodes, edges) %>% visEdges(arrows = 'to, from')
+visNetwork(nodes, edges) %>%
+visEdges(arrows = list(to = list(enabled = TRUE,
+scaleFactor = 2, type = 'circle')))
+# smooth
+visNetwork(nodes, edges) %>% visEdges(smooth = FALSE)
+visNetwork(nodes, edges) %>% visEdges(smooth = list(enabled = TRUE, type = "diagonalCross"))
+# width
+visNetwork(nodes, edges) %>% visEdges(width = 10)
+# color
+visNetwork(nodes, edges) %>% visEdges(color = list(hover = "green")) %>%
+visInteraction(hover = TRUE)
+visNetwork(nodes, edges) %>% visEdges(color = "red")
+visNetwork(nodes, edges) %>% visEdges(color = list(color = "red", highlight = "yellow"))
+# shadow
+visNetwork(nodes, edges) %>% visEdges(shadow = TRUE)
+visNetwork(nodes, edges) %>% visEdges(shadow = list(enabled = TRUE, size = 5))
+# dashes
+# globally
+visNetwork(nodes, edges) %>% visEdges(dashes = TRUE)
+# set configuration individualy
+# have to use specific notation...
+nodes <- data.frame(id = 1:3)
+edges <- data.frame(from = c(1,2), to = c(1,3),
+dashes = c("[10,10,2,2]", "false"))
+visNetwork(nodes, edges)
+edges <- data.frame(from = c(1,2), to = c(1,3),
+dashes = c("[10,10,2,2]", "[2]"))
+visNetwork(nodes, edges)
+visEvents Network visualization events
+visEvents 17
+#### Description
+Network visualization events. For full documentation, have a look at visDocumentation. Use
+type = "once" to set an event listener only once, and type = "off" to disable all the related
+events.
+#### Usage
+<pre><code>
+visEvents(graph, type = "on", click = NULL, doubleClick = NULL,
+oncontext = NULL, hold = NULL, release = NULL, select = NULL,
+selectNode = NULL, selectEdge = NULL, deselectNode = NULL,
+deselectEdge = NULL, dragStart = NULL, dragging = NULL,
+dragEnd = NULL, hoverNode = NULL, blurNode = NULL, hoverEdge = NULL,
+blurEdge = NULL, zoom = NULL, showPopup = NULL, hidePopup = NULL,
+startStabilizing = NULL, stabilizationProgress = NULL,
+stabilizationIterationsDone = NULL, stabilized = NULL, resize = NULL,
+initRedraw = NULL, beforeDrawing = NULL, afterDrawing = NULL,
+animationFinished = NULL)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+* ``type`` :   Character. "on" (Default) to full listener, "once" to set an event listener only
+once, or "off" to disable a listener.
+click : Fired when the user clicks the mouse or taps on a touchscreen device.
+doubleClick : Fired when the user double clicks the mouse or double taps on a touchscreen
+device. Since a double click is in fact 2 clicks, 2 click events are fired, followed
+by a double click event. If you do not want to use the click events if a double
+click event is fired, just check the time between click events before processing
+them.
+oncontext : Fired when the user click on the canvas with the right mouse button. The right
+mouse button does not select by default. You can use the method getNodeAt to
+select the node if you want.
+hold : Fired when the user clicks and holds the mouse or taps and holds on a touchscreen
+device. A click event is also fired in this case.
+* ``release`` :   Fired after drawing on the canvas has been completed. Can be used to draw on
+top of the network.
+select : Fired when the selection has changed by user action. This means a node or
+edge has been selected, added to the selection or deselected. All select events
+are only triggered on click and hold.
+selectNode : Fired when a node has been selected by the user.
+selectEdge : Fired when a edge has been selected by the user.
+deselectNode : Fired when a node (or nodes) has (or have) been deselected by the user. The
+previous selection is the list of nodes and edges that were selected before the
+last user event.
+18 visEvents
+deselectEdge : Fired when a edge (or edges) has (or have) been deselected by the user. The
+previous selection is the list of nodes and edges that were selected before the
+last user event.
+dragStart : Fired when starting a drag.
+dragging : Fired when dragging node(s) or the view.
+dragEnd : Fired when the drag has finished.
+hoverNode : Fired interaction:hover:true and the mouse hovers over a node.
+blurNode : Fired interaction:hover:true and the mouse moved away from a node it was
+hovering over before.
+hoverEdge : Fired interaction:hover:true and the mouse hovers over a edge
+blurEdge : Fired interaction:hover:true and the mouse moved away from a edge it was
+hovering over before.
+zoom : Fired when the user zooms in or out. The properties tell you which direction
+the zoom is in. The scale is a number greater than 0, which is the same that you
+get with network.getScale().
+showPopup : Fired when the popup (tooltip) is shown.
+hidePopup : Fired when the popup (tooltip) is hidden.
+startStabilizing
+: Fired when stabilization starts. This is also the case when you drag a node
+and the physics simulation restarts to stabilize again. Stabilization does not
+neccesarily imply ’without showing’.
+stabilizationProgress
+: Fired when a multiple of the updateInterval number of iterations is reached.
+This only occurs in the ’hidden’ stabilization. Passes an object with properties
+structured as:
+stabilizationIterationsDone
+: Fired when the ’hidden’ stabilization finishes. This does not necessarily mean
+the network is stabilized; it could also mean that the amount of iterations defined
+in the options has been reached.
+stabilized : Fired when the network has stabilized or when the stopSimulation() has been
+called. The amount of iterations it took could be used to tweak the maximum
+amount of iterations needed to stabilize the network.
+resize : Fired when the size of the canvas has been resized, either by a redraw call
+when the container div has changed in size, a setSize() call with new values or a
+setOptions() with new width and/or height values.
+initRedraw : Fired before the redrawing begins. The simulation step has completed at this
+point. Can be used to move custom elements before starting drawing the new
+frame.
+beforeDrawing : Fired after the canvas has been cleared, scaled and translated to the viewing
+position but before all edges and nodes are drawn. Can be used to draw behind
+the network.
+afterDrawing : Fired after drawing on the canvas has been completed. Can be used to draw on
+top of the network.
+animationFinished
+: Fired when an animation is finished.
+visEvents 19
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+nodes <- data.frame(id = 1:3)
+edges <- data.frame(from = c(1,2), to = c(1,3))
+visNetwork(nodes, edges) %>%
+visEvents(select = "function(properties) {
+alert('selected nodes: ' + properties.nodes);}",
+dragEnd = "function(properties) {
+alert('finish to drag');}")
+# set one
+visNetwork(nodes, edges) %>%
+visEvents(type = "once", select = "function() {
+alert('first selection');}") %>%
+visEvents(select = "function(properties) {
+alert('selected nodes: ' + properties.nodes);}",
+dragEnd = "function(properties) {
+alert('finish to drag');}")
+# use this to get the network
+visNetwork(nodes, edges) %>%
+visEvents(type = "once", startStabilizing = "function() {
+this.moveTo({scale:0.1})}") %>%
+visPhysics(stabilization = FALSE)
+# shift+click, .....
+visNetwork(nodes, edges) %>%
+visEvents(click = "function(e) {
+if(e.event.srcEvent.shiftKey){
+alert('shift+click event')
+} else if(e.event.srcEvent.ctrlKey){
+alert('ctrl+click event')
+}else if(e.event.srcEvent.altKey){
+alert('alt+click event')
+} else {
+alert('click event')
+}
+}")
+
+
+
+
+
+
+
+
+
+
+visNetwork-treeModule Module shiny for visualize and customize a rpart tree
+#### Description
+Needed packages : shiny, rpart, colourpicker, shinyWidgets, sparkline
+#### Usage
+<pre><code>
+visTreeModuleServer(input, output, session, data, tooltip_data = NULL,
+tooltipColumns = "", main = "", submain = "", footer = "",
+direction = "UD", fallenLeaves = FALSE, rules = TRUE,
+simplifyRules = TRUE, shapeVar = "dot", shapeY = "square",
+colorVar = NULL, colorY = NULL, colorEdges = "#8181F7",
+nodesFontSize = 16, edgesFontSize = 14, edgesFontAlign = "horizontal",
+visNetwork-treeModule 59
+legend = TRUE, legendNodesSize = 22, legendFontSize = 16,
+legendWidth = 0.1, legendNcol = 1, legendPosition = "left",
+nodesPopSize = FALSE, minNodeSize = 15, maxNodeSize = 30,
+highlightNearest = list(enabled = TRUE, degree = list(from = 50000, to = 0),
+hover = FALSE, algorithm = "hierarchical"), collapse = list(enabled = TRUE,
+fit = TRUE, resetHighlight = TRUE, clusterOptions = list(fixed = TRUE, physics
+= FALSE)), updateShape = TRUE, tooltipDelay = 500, digits = 3,
+height = 650, width = "100%", export = TRUE)
+visTreeModuleUI(id, rpartParams = TRUE, visTreeParams = TRUE,
+quitButton = FALSE)
+</code></pre>
+#### Arguments
+input list shiny input
+output list, shiny output
+session list, shiny session
+data reactive, a data.frame or a rpart result. Must be a reactive object
+tooltip_data reactive, a data.frame. if data is a rpart, data.frame used to build tree in
+order to plot sparkline
+tooltipColumns numeric, indice of columns used in tooltip. All by default. So, we add boxplot
+/ pie focus on sub-population vs all population using sparkline package. NULL
+to disable.
+main Title. See visNetwork
+submain Subtitle. See visNetwork
+footer Footer. See visNetwork
+direction character, The direction of the hierarchical layout. The available options are:
+UD, DU, LR, RL. To simplify: up-down, down-up, left-right, right-left. Default
+UD. See visHierarchicalLayout
+fallenLeaves boolean leaf nodes at the bottom of the graph ? Default to FALSE
+rules boolean, add rules in tooltips ? Default to TRUE
+simplifyRules boolean, simplify rules writing
+shapeVar character, shape for variables nodes See visNodes
+shapeY character, shape for terminal nodes See visNodes
+colorVar character, colors to use or data.frame To set color of variables. 2 columns :
+-  "variable" : names of variables
+-  "color" : colors (in hexa). See examples
+colorY if classification tree : character colors to use or data.frame 2 columns :
+-  "modality" : levels of Y
+-  "color" : colors (in hexa)
+if regression tree : character, 2 colors (min and max, in hexa)
+colorEdges character, color of edges, in hexa. Default to #8181F7
+60 visNetwork-treeModule
+nodesFontSize numeric, size of labels of nodes. Default to 16
+edgesFontSize numeric, size of labels of edges Default to 14
+edgesFontAlign character, for edges only. Default tp ’horizontal’. Possible options: ’horizontal’
+(Default),’top’,’middle’,’bottom’. See visEdges
+legend boolean, add legend ? Default TRUE. visLegend
+legendNodesSize
+numeric, size of nodes in legend. Default to 22
+legendFontSize numeric, size of labels of nodes in legend. Default to 16
+legendWidth numeric, legend width, between 0 and 1. Default 0.1
+legendNcol numeric, number of columns in legend. Default 1
+legendPosition character, one of "left" (Default) or "right"
+nodesPopSize boolean, nodes sizes depends on population ? Default to FALSE
+minNodeSize numeric, in case of nodesPopSize, minimum size of a node. Defaut to 15. Else,
+nodes size is minNodeSize + maxNodeSize / 2
+maxNodeSize numeric, in case of nodesPopSize, maximum size of a node. Defaut to 30.
+Else, nodes size is minNodeSize + maxNodeSize / 2
+highlightNearest
+list, Highlight nearest nodes. See visOptions
+collapse list, collapse or not using double click on a node ? See visOptions
+updateShape boolean, in case of collapse, udpate cluster node shape as terminal node ? Default
+to TRUE
+tooltipDelay numeric, delay for tooltips in millisecond. Default 500
+digits numeric, number of digits. Default to 3
+* ``height`` :    character, default to "600px"
+* ``width `` :  character, default to "100%"
+* ``export`` :  boolean, add export button. Default to TRUE
+id character id of module, linked to visTreeModuleServer
+rpartParams boolean, add tabs for rpart parameters (in case of data.frame in input)
+visTreeParams boolean, add tabs for visTree parameters. Default to TRUE. Force to TRUE if
+rpartParams
+quitButton boolean, add a button to quit module and get back network in R ?
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+#### Examples
+```{r}
+## Not run:
+require(rpart)
+# simple module editor on rpart
+visNetworkEditor 61
+data <- iris
+shiny::shinyApp(ui = shiny::fluidPage(
+visTreeModuleUI(id = "id1", rpartParams = FALSE, visTreeParams = FALSE)),
+server = function(input, output, session) {
+shiny::callModule(visTreeModuleServer, "id1", data = shiny::reactive(rpart(data)))
+})
+# full module editor on rpart + data.frame for sparkline
+data <- iris
+shiny::shinyApp(ui = shiny::fluidPage(
+visTreeModuleUI(id = "id1", rpartParams = FALSE, visTreeParams = TRUE)),
+server = function(input, output, session) {
+shiny::callModule(visTreeModuleServer, "id1", data = shiny::reactive(rpart(data)),
+tooltip_data = data)
+})
+# module on data.frame
+shiny::shinyApp(ui = shiny::fluidPage(visTreeModuleUI(id = "id1",
+rpartParams = TRUE)),
+server = function(input, output, session) {
+shiny::callModule(visTreeModuleServer, "id1", data = shiny::reactive(data))
+})
+# multiple modules
+shiny::shinyApp(ui =
+navbarPage("Menu",shiny::tabPanel(
+"tt1",shiny::fluidPage(visTreeModuleUI(id = "id1",
+rpartParams = TRUE,
+visTreeParams = TRUE))
+),
+shiny::tabPanel(
+"tt2",shiny::fluidPage(visTreeModuleUI(id = "id2",
+rpartParams = FALSE,
+visTreeParams = FALSE)))
+),
+server = function(input, output, session) {
+shiny::callModule(visTreeModuleServer, "id1", data = shiny::reactive(iris))
+shiny::callModule(visTreeModuleServer, "id2", data = shiny::reactive(rpart(iris)))
+})
+## End(Not run)
+visNetworkEditor Visualize, customize and get back a visNetwork object. Need shiny
+package
+#### Description
+Visualize, customize and get back a visNetwork object. Need shiny package
+62 visNetworkEditor-module
+#### Usage
+<pre><code>
+visNetworkEditor(object, filter = NULL, showButton = NULL)
+</code></pre>
+#### Arguments
+object : a visNetwork object
+filter : see visConfigure
+showButton : see visConfigure
+Value
+a visNetwork object
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visConfigure, visTree, visNetworkEditorServer
+#### Examples
+```{r}
+## Not run:
+nodes <- data.frame(id = 1:3, label = paste("Node", 1:3))
+edges <- data.frame(from = c(1,2), to = c(1,3), label = paste("Edge", 1:2))
+network <- visNetwork(nodes, edges)
+custom_network <- visNetworkEditor(object = network)
+custom_network
+custom_network <- visNetworkEditor(object = network, filter = "nodes,edges")
+custom_network
+## End(Not run)
+
+visPhysics
+#### Description
+Network visualization Physics options. For full documentation, have a look at visDocumentation.
+#### Usage
+<pre><code>
+visPhysics(graph, solver = NULL, maxVelocity = NULL, minVelocity = NULL,
+timestep = NULL, barnesHut = NULL, forceAtlas2Based = NULL,
+repulsion = NULL, hierarchicalRepulsion = NULL, stabilization = NULL,
+adaptiveTimestep = NULL, enabled = NULL)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+* solver : String. Default to ’barnesHut’. You can select your own solver. Possible
+* options: ’barnesHut’, ’repulsion’, ’hierarchicalRepulsion’, ’forceAtlas2Based’.
+When setting the hierarchical layout, the hierarchical repulsion solver is automaticaly
+selected, regardless of what you fill in here.
+* maxVelocity : Number. Default to 50. The physics module limits the maximum velocity of
+the nodes to increase the time to stabilization. This is the maximium value.
+* minVelocity : Number. Default to 0.1. Once the minimum velocity is reached for all nodes,
+we assume the network has been stabilized and the simulation stops.
+* timestep : Number. Default to 0.5. The physics simulation is discrete. This means we
+take a step in time, calculate the forces, move the nodes and take another step.
+If you increase this number the steps will be too large and the network can get
+unstable. If you see a lot of jittery movement in the network, you may want to
+reduce this value a little.
+barnesHut, named list of options
+-  "gravitationalConstant" : Number. Default to -2000. Gravity attracts. We
+like repulsion. So the value is negative. If you want the repulsion to be
+stronger, decrease the value (so -10000, -50000).
+-  "centralGravity" : Number. Default to 0.3. There is a central gravity attractor
+to pull the entire network back to the center.
+-  "springLength" : Number. Default to 95. The edges are modelled as
+springs. This springLength here is the the rest length of the spring.
+-  "springConstant" : Number. Default to 0.04. This is how ’sturdy’ the
+springs are. Higher values mean stronger springs.
+-  "damping" : Number. Default to 0.09. Accepted range: [0 .. 1]. The damping
+factor is how much of the velocity from the previous physics simulation
+iteration carries over to the next iteration.
+-  "avoidOverlap" : Number. Default to 0. Accepted range: [0 .. 1]. When
+larger than 0, the size of the node is taken into account. The distance will be
+calculated from the radius of the encompassing circle of the node for both
+the gravity model. Value 1 is maximum overlap avoidance.
+forceAtlas2Based,
+named list of options
+visPhysics 75
+-  "gravitationalConstant" : Number. Default to -50. Gravity attracts. We like
+repulsion. So the value is negative. If you want the repulsion to be stronger,
+decrease the value (so -10000, -50000).
+-  "centralGravity" : Number. Default to 0.01. There is a central gravity
+attractor to pull the entire network back to the center.
+-  "springLength" : Number. Default to 100. The edges are modelled as
+springs. This springLength here is the the rest length of the spring.
+-  "springConstant" : Number. Default to 0.08. This is how ’sturdy’ the
+springs are. Higher values mean stronger springs.
+-  "damping" : Number. Default to 0.4. Accepted range: [0 .. 1]. The damping
+factor is how much of the velocity from the previous physics simulation
+iteration carries over to the next iteration.
+-  "avoidOverlap" : Number. Default to 0. Accepted range: [0 .. 1]. When
+larger than 0, the size of the node is taken into account. The distance will be
+calculated from the radius of the encompassing circle of the node for both
+the gravity model. Value 1 is maximum overlap avoidance.
+repulsion, named list of options
+-  "nodeDistance" : Number. Default to 100. This is the range of influence
+for the repulsion.
+-  "centralGravity" : Number. Default to 0.2. There is a central gravity attractor
+to pull the entire network back to the center.
+-  "springLength" : Number. Default to 200. The edges are modelled as
+springs. This springLength here is the the rest length of the spring.
+-  "springConstant" : Number. Default to 0.05. This is how ’sturdy’ the
+springs are. Higher values mean stronger springs.
+-  "damping" : Number. Default to 0.09. Accepted range: [0 .. 1]. The damping
+factor is how much of the velocity from the previous physics simulation
+iteration carries over to the next iteration.
+hierarchicalRepulsion,
+named list of options
+-  "nodeDistance" : Number. Default to 120. This is the range of influence
+for the repulsion.
+-  "centralGravity" : Number. Default to 0.0. There is a central gravity attractor
+to pull the entire network back to the center.
+-  "springLength" : Number. Default to 100. The edges are modelled as
+springs. This springLength here is the the rest length of the spring.
+-  "springConstant" : Number. Default to 0.01. This is how ’sturdy’ the
+springs are. Higher values mean stronger springs.
+-  "damping" : Number. Default to 0.09. Accepted range: [0 .. 1]. The damping
+factor is how much of the velocity from the previous physics simulation
+iteration carries over to the next iteration.
+stabilization,
+Just a boolean, or a named list of options
+-  "enabled" : Boolean. Default to true. Toggle the stabilization. This is an
+optional property. If undefined, it is automatically set to true when any of
+the properties of this object are defined.
+76 visPhysics
+-  "iterations" : Number. Default to 1000. The physics module tries to stabilize
+the network on load up til a maximum number of iterations defined
+here. If the network stabilized with less, you are finished before the maximum
+number.
+-  "updateInterval" : Number. Default to 50. When stabilizing, the DOM can
+freeze. You can chop the stabilization up into pieces to show a loading
+bar for instance. The interval determines after how many iterations the
+stabilizationProgress event is triggered.
+-  "onlyDynamicEdges" : Boolean. Default to false. If you have predefined
+the position of all nodes and only want to stabilize the dynamic smooth
+edges, set this to true. It freezes all nodes except the invisible dynamic
+smooth curve support nodes. If you want the visible nodes to move and
+stabilize, do not use this.
+-  "fit" : Boolean. Default to true. Toggle whether or not you want the view
+to zoom to fit all nodes when the stabilization is finished.
+adaptiveTimestep
+: Boolean. Default to true. If this is enabled, the timestep will intelligently be
+adapted (only during the stabilization stage if stabilization is enabled!) to greatly
+decrease stabilization times. The timestep configured above is taken as the minimum
+timestep. This can be further improved by using the improvedLayout
+algorithm.
+enabled : Boolean. Default to true. Toggle the physics system on or off. This property is
+optional. If you define any of the options below and enabled is undefined, this
+will be set to true.
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+nodes <- data.frame(id = 1:10)
+edges <- data.frame(from = round(runif(8)*10), to = round(runif(8)*10))
+visNetwork(nodes, edges) %>%
+visPhysics(solver = "repulsion")
+visNetwork(nodes, edges) %>%
+visPhysics(solver = "forceAtlas2Based", forceAtlas2Based = list(gravitationalConstant = -10))
+visNetwork(nodes, edges) %>%
+visPhysics(stabilization = FALSE)
+```
+visRedraw Network visualization redraw method
+#### Description
+Network visualization redraw method For use redraw() method in a shiny app. For full documentation,
+have a look at visDocumentation.
+#### Usage
+<pre><code>
+visRedraw(graph)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+```
+visRemoveEdges Function to remove edges from network, with shiny only.
+#### Description
+Function to remove edges from network, with shiny only.
+#### Usage
+<pre><code>
+visRemoveEdges(graph, id, legend = FALSE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+* ``id`` : vector of id, edges to remove
+* ``legend`` :   Boolean. Remove edges on legend ? Default to FALSE
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+```
+visRemoveNodes Function to remove nodes from network, with shiny only.
+#### Description
+Function to remove nodes from network, with shiny only.
+#### Usage
+<pre><code>
+visRemoveNodes(graph, id, updateOptions = TRUE, legend = FALSE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+* ``id`` : vector of id, nodes to remove
+* ``updateOptions`` : Boolean. Update options (nodesIdSelection & selectedBy) if needed ? Default to TRUE.
+* ``legend`` :   Boolean. Remove nodes on legend ? Default to FALSE
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+```
+visSave Save a a visNetwork object to an HTML file
+#### Description
+Save a a visNetwork object to an HTML file for sharing with others. The HTML can include it’s
+dependencies in an adjacent directory or can bundle all dependencies into the HTML file (via base64
+encoding).
+#### Usage
+<pre><code>
+visSave(graph, file, selfcontained = TRUE, background = "white")
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+* ``file`` : File to save HTML into. See saveWidget selfcontained : Whether to save the HTML as a single self-contained file (with external resources base64 encoded) or a file with external resources placed in an adjacent directory.
+* ``background`` : Text string giving the html background color of the widget. Defaults to white.
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visExport
+#### Examples
+```{r}
+## Not run:
+nodes <- data.frame(id = 1:3, group = c("B", "A", "B"))
+edges <- data.frame(from = c(1,2), to = c(2,3))
+network <- visNetwork(nodes, edges)
+network
+network %>% visSave(file = "network.html", background = "black")
+# same as
+visSave(network, file = "network.html", background = "black")
+```
+
+visSelectEdges Function to select edge(s) from network, with shiny only.
+#### Description
+Function to select edges(s) from network, with shiny only.
+#### Usage
+<pre><code>
+visSelectEdges(graph, id)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+id : vector of id, edges(s) to select
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+```
+visSelectNodes Function to select node(s) from network, with shiny only.
+#### Description
+Function to select node(s) from network, with shiny only.
+#### Usage
+<pre><code>
+visSelectNodes(graph, id, highlightEdges = TRUE, clickEvent = TRUE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+* ``id`` : vector of id, node(s) to select
+* ``highlightEdges`` : Boolean. highlight Edges also ? Default to TRUE
+* ``clickEvent`` : Boolean. Launch click event ? (highlightNearest for example) Default to TRUE
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+```
+visSetData Network visualization setData method
+#### Description
+For use setData() method in a shiny app. For full documentation, have a look at visDocumentation.
+#### Usage
+<pre><code>
+visSetData(graph, nodes = NULL, edges = NULL)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+nodes : data.frame with nodes informations. Needed at least column "id". See visNodes
+* ``edges`` :  data.frame with edges informations. Needed at least columns "from" and "to".
+See visEdges
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+```
+visSetOptions Network visualization full options setter
+#### Description
+Network visualization full options setter. Using this function, you can pass all network options you
+want, respecting the library format rather than use visNodes, visEdges, visGroups.... There is no
+control, so it’s at your own risk !
+#### Usage
+<pre><code>
+visSetOptions(graph, options = NULL)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+options : a named list with all options you want to add to your network.
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+#### Examples
+```{r}
+nodes <- data.frame(id = 1:3)
+edges <- data.frame(from = c(1,2), to = c(1,3))
+# using visNetwork functions
+visNetwork(nodes, edges) %>% visNodes(shape = "square", color = "red") %>%
+visEdges(arrows = "to")
+# directly use visSetOptions
+visNetwork(nodes, edges) %>%
+visSetOptions(options = list(nodes = list(shape = "square", color = "red"),
+edges = list(arrows = "to")))
+```
+visSetSelection Function to select edge(s) / node(s) from network, with shiny only.
+#### Description
+Function to select edge(s) / node(s) from network, with shiny only.
+#### Usage
+<pre><code>
+visSetSelection(graph, nodesId = NULL, edgesId = NULL, unselectAll = TRUE,
+highlightEdges = TRUE, clickEvent = TRUE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+* ``nodesId`` : vector of id, nodes(s) to select
+* ``edgesId`` : vector of id, edges(s) to select
+* ``unselectAll`` : Boolean. Unselect all nodes & edges before current selection ? Default to TRUE
+* ``highlightEdges`` : Boolean. highlight Edges also ? Default to TRUE
+* ``clickEvent`` : Boolean. Launch click event ? (highlightNearest for example) Default to TRUE
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+86 visSetTitle
+visSetTitle Set title, subtitle, and footer using visNetworkProxy
+#### Description
+Set title, subtitle, and footer using visNetworkProxy
+#### Usage
+<pre><code>
+visSetTitle(graph, main = NULL, submain = NULL, footer = NULL)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+main : For add a title. Character or a named list.
+-  "text" : Character. Title.
+-  "style" : Optional. Character. HTML style of title.
+-  ’hidden’ : Optional. Boolean. Force title to be hidden
+submain : For add a subtitle. Character or a named list.
+-  "text" : Character. Subtitle.
+-  "style" : Optional. Character. HTML style of submain.
+-  ’hidden’ : Optional. Boolean. Force submain to be hidden
+footer : For add a footer. Character or a named list.
+-  "text" : Character. footer.
+-  "style" : Optional. Character. HTML style of footer.
+-  ’hidden’ : Optional. Boolean. Force footer to be be hidden
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+```
+
+visStabilize Network visualization stabilize method
+#### Description
+For use stabilize() method in a shiny app. For full documentation, have a look at visDocumentation.
+#### Usage
+<pre><code>
+visStabilize(graph, iterations = NULL)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+iterations : Optional. If wanted, the number of iterations
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+```
+visStartSimulation Network visualization startSimulation method
+#### Description
+For use startSimulation() method in a shiny app. For full documentation, have a look at visDocumentation.
+#### Usage
+<pre><code>
+visStartSimulation(graph)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+visStopSimulation Network visualization stopSimulation method
+#### Description
+For use stopSimulation() method in a shiny app. For full documentation, have a look at visDocumentation.
+#### Usage
+<pre><code>
+visStopSimulation(graph)
+visStorePositions 89
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+visStorePositions Method storePositions, with shiny only.
+#### Description
+Method storePositions, with shiny only. Put the X and Y positions of all nodes into that dataset.
+#### Usage
+<pre><code>
+visStorePositions(graph)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+90 visTree
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+visTree Visualize Recursive Partitioning and Regression Trees (rpart object)
+#### Description
+Visualize Recursive Partitioning and Regression Trees rpart. Have a look to visTreeEditor to edity
+and get back network, or to visTreeModuleServer to use custom tree module in R
+#### Usage
+<pre><code>
+visTree(object, data = NULL, tooltipColumns = if (!is.null(data)) {
+1:ncol(data) } else { NULL }, main = "", submain = "", footer = "",
+direction = "UD", fallenLeaves = FALSE, rules = TRUE,
+simplifyRules = TRUE, shapeVar = "dot", shapeY = "square",
+colorVar = NULL, colorY = NULL, colorEdges = "#8181F7",
+nodesFontSize = 16, edgesFontSize = 14, edgesFontAlign = "horizontal",
+legend = TRUE, legendNodesSize = 22, legendFontSize = 16,
+legendWidth = 0.1, legendNcol = 1, legendPosition = "left",
+nodesPopSize = FALSE, minNodeSize = 15, maxNodeSize = 30,
+highlightNearest = list(enabled = TRUE, degree = list(from = 50000, to = 0),
+hover = FALSE, algorithm = "hierarchical"), collapse = list(enabled = TRUE,
+fit = TRUE, resetHighlight = TRUE, clusterOptions = list(fixed = TRUE, physics
+= FALSE)), updateShape = TRUE, tooltipDelay = 500, digits = 3,
+height = "600px", width = "100%", export = TRUE)
+</code></pre>
+#### Arguments
+object rpart, rpart object
+data data.frame, adding mini-graphics in tooltips using sparkline and tooltipColumns
+?
+tooltipColumns numeric, indice of columns used in tooltip. All by default. So, we add boxplot
+/ pie focus on sub-population vs all population using sparkline package. NULL
+to disable.
+main Title. See visNetwork
+submain Subtitle. See visNetwork
+footer Footer. See visNetwork
+visTree 91
+direction character, The direction of the hierarchical layout. The available options are:
+UD, DU, LR, RL. To simplify: up-down, down-up, left-right, right-left. Default
+UD. See visHierarchicalLayout
+fallenLeaves boolean leaf nodes at the bottom of the graph ? Default to FALSE
+rules boolean, add rules in tooltips ? Default to TRUE
+simplifyRules boolean, simplify rules writing
+shapeVar character, shape for variables nodes See visNodes
+shapeY character, shape for terminal nodes See visNodes
+colorVar character, colors to use or data.frame To set color of variables. 2 columns :
+-  "variable" : names of variables
+-  "color" : colors (in hexa). See examples
+colorY if classification tree : character colors to use or data.frame 2 columns :
+-  "modality" : levels of Y
+-  "color" : colors (in hexa)
+if regression tree : character, 2 colors (min and max, in hexa)
+colorEdges character, color of edges, in hexa. Default to #8181F7
+nodesFontSize numeric, size of labels of nodes. Default to 16
+edgesFontSize numeric, size of labels of edges Default to 14
+edgesFontAlign character, for edges only. Default tp ’horizontal’. Possible options: ’horizontal’
+(Default),’top’,’middle’,’bottom’. See visEdges
+legend boolean, add legend ? Default TRUE. visLegend
+legendNodesSize
+numeric, size of nodes in legend. Default to 22
+legendFontSize numeric, size of labels of nodes in legend. Default to 16
+legendWidth numeric, legend width, between 0 and 1. Default 0.1
+legendNcol numeric, number of columns in legend. Default 1
+legendPosition character, one of "left" (Default) or "right"
+nodesPopSize boolean, nodes sizes depends on population ? Default to FALSE
+minNodeSize numeric, in case of nodesPopSize, minimum size of a node. Defaut to 15. Else,
+nodes size is minNodeSize + maxNodeSize / 2
+maxNodeSize numeric, in case of nodesPopSize, maximum size of a node. Defaut to 30.
+Else, nodes size is minNodeSize + maxNodeSize / 2
+highlightNearest
+list, Highlight nearest nodes. See visOptions
+collapse list, collapse or not using double click on a node ? See visOptions
+updateShape boolean, in case of collapse, udpate cluster node shape as terminal node ? Default
+to TRUE
+tooltipDelay numeric, delay for tooltips in millisecond. Default 500
+digits numeric, number of digits. Default to 3
+* ``height`` :    character, default to "600px"
+* ``width `` :  character, default to "100%"
+* ``export`` :  boolean, add export button. Default to TRUE
+92 visTree
+Value
+a visNetwork object
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visTreeEditor, visTreeModuleServer, visNetworkEditor
+#### Examples
+```{r}
+## Not run:
+library(rpart)
+# Basic classification tree
+res <- rpart(Species~., data=iris)
+visTree(res, data = iris, main = "Iris classification Tree")
+# Basic regression tree
+res <- rpart(Petal.Length~., data=iris)
+visTree(res, edgesFontSize = 14, nodesFontSize = 16)
+# Complex tree
+data("solder")
+res <- rpart(Opening~., data = solder, control = rpart.control(cp = 0.00005))
+visTree(res, data = solder, nodesPopSize = TRUE, minNodeSize = 10,
+maxNodeSize = 30, height = "800px")
+# ----- Options
+res <- rpart(Opening~., data = solder, control = rpart.control(cp = 0.005))
+# fallen leaves + align edges label & size
+visTree(res, fallenLeaves = TRUE, height = "500px",
+edgesFontAlign = "middle", edgesFontSize = 20)
+# disable rules in tooltip, and render tooltip faster
+# enable hover highlight
+visTree(res, rules = FALSE, tooltipDelay = 0,
+highlightNearest = list(enabled = TRUE, degree = list(from = 50000, to = 0),
+hover = TRUE, algorithm = "hierarchical"))
+# Change color with data.frame
+colorVar <- data.frame(variable = names(solder),
+color = c("#339933", "#b30000","#4747d1","#88cc00", "#9900ff","#247856"))
+colorY <- data.frame(modality = unique(solder$Opening),
+color = c("#AA00AA", "#CDAD15", "#213478"))
+visTreeEditor 93
+visTree(res, colorEdges = "#000099", colorVar = colorVar, colorY = colorY)
+# Change color with vector
+visTree(res, colorEdges = "#000099",
+colorVar = substring(rainbow(6), 1, 7),
+colorY = c("blue", "green", "orange"))
+# Use visNetwork functions to add more options
+visTree(res) %>%
+visOptions(highlightNearest = TRUE)
+## End(Not run)
+visTreeEditor Run and edit a visTree, and get back in R
+#### Description
+Needed packages : shiny, rpart, colourpicker, shinyWidgets
+#### Usage
+<pre><code>
+visTreeEditor(data, ...)
+</code></pre>
+#### Arguments
+data rpart or data.drame
+... all arguments except object present in visTreeModuleServer
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visTree, visTreeModuleServer, visNetworkEditor
+#### Examples
+```{r}
+## Not run:
+net <- visTreeEditor(data = iris)
+net <- visTreeEditor(data = rpart(iris), main = "visTree Editor")
+net <- visTreeEditor(data = rpart(iris), tooltip_data = iris,
+94 visUnselectAll
+main = "visTree Editor")
+net
+## End(Not run)
+visUnselectAll Network visualization unselectAll method
+#### Description
+For use unselectAll() method in a shiny app. For full documentation, have a look at visDocumentation.
+#### Usage
+<pre><code>
+visUnselectAll(graph)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+visUpdateEdges 95
+visUpdateEdges Function to update the information of edges, with shiny only.
+#### Description
+Function to update the information of edges, with shiny only. You can also use this function passing
+new edges. The link is based on id.
+#### Usage
+<pre><code>
+visUpdateEdges(graph, edges, legend = FALSE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+* ``edges`` :  data.frame with the information of edges. See visEdges
+-  "id" : edge id, for update
+-  "from" : node id, begin of the edge
+-  "to" : node id, end of the edge
+-  "label" : label
+-  "value" : size
+-  "title" : tooltip
+-  ...
+* ``legend`` :   Boolean. Update edges on legend ? Default to FALSE
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+```
+visUpdateNodes Function to update the information of nodes, with shiny only.
+#### Description
+Function to update the information of nodes, with shiny only. You can also use this function passing
+new nodes. The link is based on id.
+#### Usage
+<pre><code>
+visUpdateNodes(graph, nodes, updateOptions = TRUE, legend = FALSE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+* ``nodes`` :  data.frame with the information of nodes. Needed at least column "id". See
+visNodes
+-  "id" : id of the node, needed in the definition of edges and for update nodes
+-  "label" : label of the node
+-  "group" : group of the node. Groups can be configure with visGroups
+-  "value" : size of the node
+-  "title" : tooltip of the node
+-  ...
+updateOptions : Boolean. Update options (nodesIdSelection & selectedBy) if needed ? Default
+to TRUE.
+* ``legend`` :   Boolean. Update nodes on legend ? Default to FALSE
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+```
