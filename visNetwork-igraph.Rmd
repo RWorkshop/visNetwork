@@ -1,0 +1,85 @@
+
+visNetwork-igraph Render a visNetwork object from an igraph object
+#### Description
+Render a visNetwork object from an igraph object. toVisNetworkData transfrom igraph data to
+visNetwork data. We actually try to keep color, size and label from igraph to visNetwork. visIgraph
+plot directly an igraph object in visNetwork, using toVisNetworkData to extract data, and
+visIgraphLayout to compute layout and coordinates before rendering.
+#### Usage
+<pre><code>
+visIgraph(igraph, idToLabel = TRUE, layout = "layout_nicely",
+physics = FALSE, smooth = FALSE, type = "square", randomSeed = NULL,
+layoutMatrix = NULL, ...)
+toVisNetworkData(igraph, idToLabel = TRUE)
+</code></pre>
+#### Arguments
+* ``igraph`` :   a igraph object
+idToLabel : Boolean. Default to TRUE. Use id of nodes as label ?
+layout : Character Name of igraph layout function to use. Default to "layout_nicely"
+physics : Boolean. Default to FALSE. Enabled physics on nodes ?
+smooth : Boolean. Default to FALSE. Use smooth edges ?
+* ``type`` :   Character Type of scale from igrah to vis.js. "square" (defaut) render in a
+square limit by height. "full" use width and height to scale in a rectangle.
+* ``randomSeed`` :   Number. The nodes are randomly positioned initially. This means that the
+settled result is different every time. If you provide a random seed manually, the
+layout will be the same every time.
+layoutMatrix : in case of layout = ’layout.norm’. the ’layout’ argument (A matrix with two or
+three columns, the layout to normalize)
+... : Adding arguments to layout function
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+56 visNetwork-igraph
+#### Examples
+```{r}
+## Not run:
+require(igraph)
+igraph_network <- graph.famous("Walther")
+# get data and plot :
+data <- toVisNetworkData(igraph_network)
+visNetwork(nodes = data$nodes, edges = data$edges)
+# or plot directly
+visIgraph(igraph_network)
+# change layout
+visIgraph(igraph_network, layout = "layout_in_circle")
+# options
+visIgraph(igraph_network, layout = "layout_in_circle",
+physics = FALSE, smooth = TRUE)
+# passing some info
+g <- graph.star(8)
+V(g)$color <- c("green", "grey")
+V(g)$size <- 1:8 *5
+V(g)$label <- LETTERS[1:8]
+V(g)$label.cex = seq(1, 2,length.out = 8)
+V(g)$label.color = "red"
+visIgraph(g, layout = "layout.circle", idToLabel = FALSE)
+g <- graph.full(5)
+E(g)$weight <- runif(ecount(g))
+E(g)$width <- 1
+E(g)$color <- "red"
+E(g)[ weight < 0.5 ]$width <- 4
+E(g)[ weight < 0.5 ]$color <- "green"
+E(g)$label <- LETTERS[1:10]
+E(g)$label.cex = seq(1, 2,length.out = 10)
+E(g)$label.color = "red"
+visIgraph(g)
+# color vertices of the largest component
+largest_comp <- function(graph) {
+cl <- components(graph)
+V(graph)[which.max(cl$csize) == cl$membership]
+}
+g <- sample_(gnp(100, 2/100),
+with_vertex_(size = 3, label = ""),
+with_graph_(layout = layout_with_fr)
+)
+giant_v <- largest_comp(g)
+V(g)$color <- "blue"
+V(g)[giant_v]$color <- "orange"
+visNetwork-shiny 57
+plot(g)
+visIgraph(g)
+## End(Not run)
