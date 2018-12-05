@@ -1,0 +1,55 @@
+
+
+visNetwork-shiny Shiny bindings for visNetwork
+#### Description
+Output and render functions for using visNetwork within Shiny applications and interactive Rmd
+documents. With visNetworkProxy, you can update your network without redraw in shiny.
+#### Usage
+<pre><code>
+visNetworkOutput(outputId, width = "100%", height = "400px")
+renderVisNetwork(expr, env = parent.frame(), quoted = FALSE)
+visNetworkProxy(shinyId, session = shiny::getDefaultReactiveDomain())
+</code></pre>
+#### Arguments
+outputId : output variable to read from
+width, height Must be a valid CSS unit (like "100%", "400px", "auto") or a number, which
+will be coerced to a string and have "px" appended.
+expr An expression that generates a visNetwork
+env The environment in which to evaluate expr.
+quoted Is expr a quoted expression (with quote())? This is useful if you want to save
+an expression in a variable.
+shinyId single-element character vector indicating the shiny output ID of the network to
+modify
+session the Shiny session object to which the map belongs; usually the default value will
+suffice
+Details
+With visNetworkProxy, you can update your network and use various methods :
+-  "all ’visNetwork’ functons" : visOptions, visNodes, visEdges, visPhysics, visEvents,
+...
+-  visFocus : Focus to one or more nodes
+-  visFit : Set view on a set of nodes
+-  visUpdateNodes : Update and add nodes
+-  visUpdateEdges : Update and add edges
+58 visNetwork-treeModule
+-  visRemoveNodes : Remove nodes
+-  visRemoveEdges : Remove edges
+-  visSelectNodes :Select nodes
+-  visSelectEdges : Select edges
+-  visGetNodes : Get nodes dataset
+-  visGetEdges : Get edges dataset
+-  visSetSelection : Select edges/nodes
+-  visNearestNodes : Get nearest nodes
+-  visCollapse : Collapse nodes
+-  visUncollapse : Uncollpase nodes
+-  visSetTitle : Set and update main, submain, footer
+-  and also... : visGetSelectedEdges, visGetSelectedNodes, visGetSelection, visGetConnectedEdges,
+visGetConnectedNodes, visRedraw, visStabilize, visSetData, visGetPositions, visMoveNode,
+visUnselectAll, visGetScale, visGetBoundingBox, visGetViewPosition,visSetOptions
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
