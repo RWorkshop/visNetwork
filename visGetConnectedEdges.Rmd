@@ -1,0 +1,28 @@
+
+visGetConnectedEdges Method getConnectedEdges, with shiny only.
+
+#### Description
+Method getConnectedEdges, with shiny only. Returns a vector of edgeIds of the edges connected to this node.
+
+#### Usage
+<pre><code>
+visGetConnectedEdges(graph, id, input = paste0(graph$id, "_connectedEdges"))
+</code></pre>
+
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+* ``id`` : a node id
+* ``input`` : name of shiny input created. Default to paste0(graph$id, "_connectedEdges")
+
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+```
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout, visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
