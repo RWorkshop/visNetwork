@@ -1,0 +1,118 @@
+
+visHclust Visualize Hierarchical cluster analysis.
+#### Description
+Visualize Hierarchical cluster analysis hclust. This function compute distance using dist, and
+Hierarchical cluster analysis using hclust (from stats package or flashClust if installed), and render
+the tree with visNetwork, adding informations. Can also be called on a hclust or dist object.
+Needed packages : sparkline (graphics on tooltip), ggraph, igraph, flashClust
+#### Usage
+<pre><code>
+visHclust(object, ...)
+## Default S3 method:
+visHclust(object, ...)
+## S3 method for class 'data.frame'
+visHclust(object, main = "", submain = "",
+footer = "", distColumns = NULL, distMethod = "euclidean",
+hclustMethod = "complete", cutree = 0, tooltipColumns = 1:ncol(object),
+colorEdges = "black", colorGroups = substr(rainbow(cutree), 1, 7),
+highlightNearest = TRUE, horizontal = FALSE, minNodeSize = 50,
+maxNodeSize = 200, nodesPopSize = TRUE, height = "600px",
+width = "100%", export = TRUE, ...)
+## S3 method for class 'dist'
+visHclust(object, data = NULL, main = "", submain = "",
+footer = "", cutree = 0, hclustMethod = "complete",
+tooltipColumns = if (!is.null(data)) { 1:ncol(data) } else { NULL },
+colorEdges = "black", colorGroups = substr(rainbow(cutree), 1, 7),
+highlightNearest = TRUE, horizontal = FALSE, minNodeSize = 50,
+maxNodeSize = 200, nodesPopSize = TRUE, height = "600px",
+width = "100%", export = TRUE, ...)
+## S3 method for class 'hclust'
+visHclust(object, data = NULL, main = "", submain = "",
+footer = "", cutree = 0, tooltipColumns = if (!is.null(data)) {
+1:ncol(data) } else { NULL }, colorEdges = "black",
+colorGroups = substr(rainbow(cutree), 1, 7), highlightNearest = TRUE,
+horizontal = FALSE, minNodeSize = 50, maxNodeSize = 200,
+nodesPopSize = TRUE, height = "600px", width = "100%", export = TRUE,
+...)
+</code></pre>
+#### Arguments
+object hclust | dist | data.frame.
+36 visHclust
+... Don’t use
+main Title. See visNetwork
+submain Subtitle. See visNetwork
+footer Footer. See visNetwork
+distColumns numeric, indice of columns used for compute distance. If NULL (default), keep
+all numeric and integer columns. If Not NULL, keep only numeric and integer
+columns
+distMethod character, the distance measure to be used for dist function. Default to ’euclidean’.
+hclustMethod character, the agglomeration method to be used for hclust function. Default
+to ’complete’.
+* ``cutree`` :   numeric or integer, desired number of groups. Default to 0.
+tooltipColumns numeric, adding mini-graphics in tooltips using sparkline ? Indice of columns
+used in tooltip. All by default. So, we add boxplot / pie focus on sub-population
+vs all population using sparkline package. NULL to disable.
+colorEdges character, color of edges. Default to ’black’.
+colorGroups character, color for group in hexa ("#00FF00"). Default rainbow.
+highlightNearest
+boolean, highlight sub-tree on click ? Default to TRUE.
+* ``horizontal`` :  boolean, default to FALSE
+minNodeSize numeric, in case of nodesPopSize, minimum size of a node. Defaut to 50. Else
+minNodeSize + maxNodeSize / 2.
+maxNodeSize numeric, in case of nodesPopSize, maximum size of a node. Defaut to 200.
+Else minNodeSize + maxNodeSize / 2.
+nodesPopSize boolean, nodes sizes depends on population ? Default to TRUE.
+* ``height`` :    character, default to "600px"
+* ``width `` :  character, default to "100%"
+* ``export`` :  boolean, add button for export. Default to TRUE
+data data.frame, data.frame with data. Only for hclust or dist object.
+#### Examples
+```{r}
+## Not run:
+#--------------
+# data.frame
+#--------------
+# default call on data.frame
+visHclust(iris, cutree = 3, colorEdges = "red")
+# update some parameters
+visHclust(iris, cutree = 3, tooltipColumns = c(1, 5),
+visHierarchicalLayout 37
+colorGroups = c("red", "blue", "green"), horizontal = TRUE)
+```
+```{r}
+# no graphics on tooltip
+visHclust(iris, cutree = 3, tooltipColumns = NULL,
+main = "Hclust on iris")
+# Title(s)
+visHclust(iris, cutree = 3, main ="My_title",
+submain = "My_sub_title", footer = "My_footer")
+```
+```{r}
+# Export
+visHclust(iris, cutree = 3, export = TRUE)
+# update group / individual nodes
+visHclust(iris, cutree = 8) %>%
+visGroups(groupname = "group", color ="black",
+shape = "triangleDown", size = 75) %>%
+visGroups(groupname = "individual",
+font = list(size = 150),
+color = list(background = "white", border = "purple",
+highlight = "#e2e9e9", hover = "orange"), shape = "box")
+```
+```{r}
+#--------------
+# dist
+#--------------
+# without adding data & info in tooltip
+visHclust(dist(iris[,1:4]), cutree = 3)
+# adding data & info in tooltip
+visHclust(dist(iris[,1:4]), cutree = 3, data = iris)
+#--------------
+# hclust
+#--------------
+# without adding data & info in tooltip
+visHclust(hclust(dist(iris[,1:4])), cutree = 3)
+# adding data & info in tooltip
+visHclust(hclust(dist(iris[,1:4])), cutree = 3, data = iris)
+## End(Not run)
+```
