@@ -1,0 +1,36 @@
+visGroups Network visualization groups options
+#### Description
+Network visualization groups options. For full documentation, have a look at visDocumentation.
+
+#### Usage
+<pre><code>
+visGroups(graph, useDefaultGroups = TRUE, groupname = NULL, ...)
+</code></pre>
+
+#### Arguments
+* ``graph`` : a visNetwork object
+* ``useDefaultGroups`` : Boolean. Default to true. If your nodes have groups defined that are not in the Groups module, the module loops over the groups it does have, allocating one
+for each unknown group. When all are used, it goes back to the first group. By setting this to false, the default groups will not be used in this cycle.
+* ``groupname`` : String. Name of target group.
+* ... : visNodes. You can add multiple groups containing styling information that applies to a certain subset of groups. All options described in the nodes module
+that make sense can be used here (you’re not going to set the same id or x,y position for a group of nodes)
+
+
+#### Examples
+```{r}
+nodes <- data.frame(id = 1:10, label = paste("Label", 1:10),
+group = sample(c("A", "B"), 10, replace = TRUE))
+edges <- data.frame(from = c(2,5,10), to = c(1,2,10))
+visNetwork(nodes, edges) %>%
+visLegend() %>%
+visGroups(groupname = "A", color = "red", shape = "database") %>%
+visGroups(groupname = "B", color = "yellow", shape = "triangle")
+```
+
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
