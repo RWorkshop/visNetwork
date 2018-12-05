@@ -1,0 +1,24 @@
+30 visGetSelectedEdges
+visGetSelectedEdges Function to get selected edges, with shiny only.
+#### Description
+Function to get selected edges, with shiny only. Returns a vector of selected edge ids.
+#### Usage
+<pre><code>
+visGetSelectedEdges(graph, input = paste0(graph$id, "_selectedEdges"))
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+* ``input`` : name of shiny input created. Default to paste0(graph$id, "_selectedEdges")
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
