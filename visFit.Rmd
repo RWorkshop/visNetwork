@@ -1,0 +1,31 @@
+
+visFit Network visualization fit method
+#### Description
+For use fit() method in a shiny app. For full documentation, have a look at visDocumentation.
+#### Usage
+<pre><code>
+visFit(graph, nodes = NULL, animation = list(duration = 1500, easingFunction
+= "easeInOutQuad"))
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+nodes : NULL for all nodes (Default), or a vector of nodes id
+animation : Optional. List. For animation you can define the duration (in milliseconds) and
+easing function manually. Available are: linear, easeInQuad, easeOutQuad, easeInOutQuad,
+easeInCubic, easeOutCubic, easeInOutCubic, easeInQuart, ease-
+OutQuart, easeInOutQuart, easeInQuint, easeOutQuint, easeInOutQuint. Default
+to list(duration = 1500, easingFunction = "easeInOutQuad")
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+22 visFocus
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
