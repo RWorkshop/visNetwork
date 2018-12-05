@@ -1,0 +1,25 @@
+visGetScale 29
+visGetScale Function to get current scale of network, with shiny only.
+#### Description
+Function to get current scale of network, with shiny only. Returns the current scale of the network.
+1.0 is comparible to full, 0 is zoomed out infinitely.
+#### Usage
+<pre><code>
+visGetScale(graph, input = paste0(graph$id, "_scale"))
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+* ``input`` : name of shiny input created. Default to paste0(graph$id, "_scale")
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+```
