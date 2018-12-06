@@ -1,5 +1,15 @@
-30 visGetSelectedEdges
-visGetSelectedEdges Function to get selected edges, with shiny only.
+---
+title: "``visGetSelectedEdges``:   Function to get selected edges, with shiny only."
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+
+
 #### Description
 Function to get selected edges, with shiny only. Returns a vector of selected edge ids.
 #### Usage

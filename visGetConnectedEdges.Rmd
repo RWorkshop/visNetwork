@@ -1,5 +1,14 @@
+---
+title: "``visGetConnectedEdges ``:  Method getConnectedEdges, with shiny only."
+output: html_document
+---
 
-visGetConnectedEdges Method getConnectedEdges, with shiny only.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+
 
 #### Description
 Method getConnectedEdges, with shiny only. Returns a vector of edgeIds of the edges connected to this node.

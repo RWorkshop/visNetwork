@@ -1,3 +1,12 @@
+---
+title: "``Wbiplot``:  Weighted Biplot"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
 
 visInteraction Network visualization interaction
 #### Description
@@ -60,14 +69,8 @@ tooltipStay : Number. Default to 300. This is the amount of time in milliseconds
 before the tooltip is hidden.
 tooltipStyle : Character. HTML style of tooltip. You must use ’position: fixed;visibility:hidden;’.
 zoomView : Boolean. Default to true. When true, the user can zoom in.
-visInteraction 43
-#### References
-See online documentation http://datastorm-open.github.io/visNetwork/
-See Also
-visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
-for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
-visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
-for animation within shiny, visDocumentation, visEvents, visConfigure ...
+
+
 #### Examples
 ```{r}
 nodes <- data.frame(id = 1:10,
@@ -78,18 +81,26 @@ edges <- data.frame(from = round(runif(8)*10), to = round(runif(8)*10))
 # font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;*
 # -webkit-border-radius: 3px;border-radius: 3px; border: 1px solid #808074;
 # box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);max-width:400px;word-break: break-all'
+```
+```{r}
 visNetwork(nodes, edges) %>%
 visInteraction(tooltipStyle = 'position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;
 font-family: cursive;font-size:18px;font-color:purple;background-color: red;')
 nodes <- data.frame(id = 1:3)
 edges <- data.frame(from = c(1,2), to = c(1,3))
+```
+```{r}
 # frozen network
 visNetwork(nodes, edges) %>%
 visInteraction(dragNodes = FALSE, dragView = FALSE, zoomView = FALSE)
 visNetwork(nodes, edges) %>%
 visInteraction(hideEdgesOnDrag = TRUE)
+```
+```{r}
 visNetwork(nodes, edges) %>%
 visInteraction(hover = TRUE)
+```
+```{r}
 # navigation button
 visNetwork(nodes, edges) %>%
 visInteraction(navigationButtons = TRUE)
@@ -98,5 +109,13 @@ visInteraction(selectConnectedEdges = FALSE)
 visNetwork(nodes, edges) %>%
 visInteraction(multiselect = TRUE)
 visNetwork(nodes, edges) %>%
-44 visLayout
+
 visInteraction(keyboard = TRUE)
+```
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...

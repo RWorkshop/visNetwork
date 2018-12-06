@@ -1,4 +1,14 @@
-visGroups Network visualization groups options
+---
+title: "``visGroups ``: Network visualization groups options."
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+
 #### Description
 Network visualization groups options. For full documentation, have a look at visDocumentation.
 

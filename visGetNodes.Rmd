@@ -1,5 +1,15 @@
+---
+title: "``visGetNodes``:  Function to get nodes data, with shiny only."
+output: html_document
+---
 
-visGetNodes Function to get nodes data, with shiny only.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+
+
 
 #### Description
 Function to get nodes data, with shiny only.
