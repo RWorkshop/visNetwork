@@ -1,8 +1,8 @@
 
-visGetPositions Network visualization getPositions method
+### ``visGetPositions``: Network visualization getPositions method
 
 #### Description
-For use getPositions() method in a shiny app. For full documentation, have a look at visDocumentation.
+For use ``getPositions()`` method in a shiny app. For full documentation, have a look at visDocumentation.
 
 #### Usage
 <pre><code>
@@ -22,8 +22,6 @@ shiny::runApp(system.file("shiny", package = "visNetwork"))
 
 #### References
 See online documentation http://datastorm-open.github.io/visNetwork/
-See Also
-visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
-for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
-visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
-for animation within shiny, visDocumentation, visEvents, visConfigure ...
+
+#### See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout, visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit for animation within shiny, visDocumentation, visEvents, visConfigure ...
