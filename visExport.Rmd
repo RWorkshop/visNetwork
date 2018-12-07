@@ -1,13 +1,12 @@
-
 ---
-title: "visNetwork"
+title: "visExport Network export configuration"
 output: html_document
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(visNetwork)
 ```
-visExport Network export configuration
+
 #### Description
 Network export configuration. This function only work within shiny or a web browser.
 #### Usage
@@ -19,20 +18,17 @@ float = "right", style = NULL, loadDependencies = TRUE, ...)
 #### Arguments
 * ``graph`` : a visNetwork object
 * ``type`` :   Type of export. One of "png" (default), "jpeg" or "pdf"
-name : name of imgage, default to "network"
-label : Label on button, default to "Export as png/jpeg/pdf"
-background : background color, default to white (#fff). Work only if network background is
-transparent.
-float : button postion, default to "right"
-style : button css style.
-loadDependencies
-/ Boolean. TRUE by default. Load libraries for export (fileSaver, Blob, canvastoBlob,
-html2canvas, jsPDF)
-... : arguments for addExport
+* name : name of imgage, default to "network"
+* label : Label on button, default to "Export as png/jpeg/pdf"
+* background : background color, default to white (#fff). Work only if network background is transparent.
+* float : button postion, default to "right"
+* style : button css style.
+* loadDependencies / Boolean. TRUE by default. Load libraries for export (fileSaver, Blob, canvastoBlob, html2canvas, jsPDF)
+* ... : arguments for addExport
+
 #### References
 See online documentation http://datastorm-open.github.io/visNetwork/
-See Also
-visSave
+
 #### Examples
 ```{r}
 ## Not run:
@@ -40,13 +36,13 @@ nodes <- data.frame(id = 1:3, group = c("B", "A", "B"))
 edges <- data.frame(from = c(1,2), to = c(2,3))
 visNetwork(nodes, edges) %>%
 visGroups(groupname = "A", color = "red") %>%
-visFit 21
-visGroups(groupname = "B", color = "lightblue") %>%
-visLegend() %>% visExport()
+ visGroups(groupname = "B", color = "lightblue") %>%
+ visLegend() %>% visExport()
+
 visNetwork(nodes, edges) %>%
-visGroups(groupname = "A", color = "red") %>%
-visGroups(groupname = "B", color = "lightblue") %>%
-visLegend() %>% visExport(type = "jpeg", name = "export-network",
-float = "left", label = "Save network", background = "purple", style= "")
+  visGroups(groupname = "A", color = "red") %>%
+  visGroups(groupname = "B", color = "lightblue") %>%
+  visLegend() %>% visExport(type = "jpeg", name = "export-network",
+  float = "left", label = "Save network", background = "purple", style= "")
 ## End(Not run)
 ```
