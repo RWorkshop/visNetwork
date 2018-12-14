@@ -1,51 +1,53 @@
+---
+title: "``visGetNodes``:  Function to get nodes data, with shiny only."
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
 visOptions Network visualization general options
 #### Description
 Network visualization general options. For full documentation, have a look at visDocumentation.
-visOptions 69
+
 #### Usage
 <pre><code>
 visOptions(graph, width = NULL, height = NULL, highlightNearest = FALSE,
 nodesIdSelection = FALSE, selectedBy = NULL, collapse = FALSE,
 autoResize = NULL, clickToUse = NULL, manipulation = NULL)
 </code></pre>
+
 #### Arguments
+
 * ``graph`` : a visNetwork object
 * ``width`` :   String. Default to "100%". The width of the network in pixels or as a percentage.
-height : String. Default to "100%". The height of the network in pixels or as a percentage.
-highlightNearest
-: Custom Option. Just a Boolean, or a named list. Default to false. Highlight
+* height : String. Default to "100%". The height of the network in pixels or as a percentage.
+highlightNearest : Custom Option. Just a Boolean, or a named list. Default to false. Highlight
 nearest when clicking a node ? Not available for DOT and Gephi.
 -  "enabled" : Boolean. Default to false. Activated or not ?.
 -  "degree" : Optional. Integer. Degree of depth of nodes to be colored. Default
 to 1. Set high number to have the entire sub-network. In case of "hierarchical"
-algorithm, you can also pass a list(from = 1, to = 1) to control
-degree in both direction
+algorithm, you can also pass a list(from = 1, to = 1) to control degree in both direction
 -  "hover" : Optional. Boolean. Enable highlightNearest alos hovering a node
 ? Default to FALSE
 -  "algorithm" : Optional. String. highlightNearest algorithm. "all" highlight
-all nodes, without taking direction information. "hierarchical" look only at
-inputs/outputs nodes.
--  "hideColor" : Optional. String. Color for hidden nodes/edges. Use a rgba
-definition. Defaut to rgba(200,200,200,0.5)
+all nodes, without taking direction information. "hierarchical" look only at inputs/outputs nodes.
+-  "hideColor" : Optional. String. Color for hidden nodes/edges. Use a rgba definition. Defaut to rgba(200,200,200,0.5)
 -  "labelOnly" : Optional. Boolean. Keep just label for nodes on degree + 1 ?
 Default to TRUE
-nodesIdSelection
-: Custom Option. Just a Boolean, or a named list. Default to false. Add an id
+nodesIdSelection : Custom Option. Just a Boolean, or a named list. Default to false. Add an id
 node selection creating an HTML select element. This options use click event.
 Not available for DOT and Gephi.
 -  "enabled" : Boolean. Default to false. Activated or not ?.
--  "values : Optional. Vector of possible values (node’s id), and so order is
-preserve. Defaut to all id in nodes data.frame.
--  "selected" : Optional. Integer/Character. Initial id selection. Defaut to
-NULL
+-  "values : Optional. Vector of possible values (node’s id), and so order is preserve. Defaut to all id in nodes data.frame.
+-  "selected" : Optional. Integer/Character. Initial id selection. Defaut to NULL
 -  "style" : Optional. Character. HTML style of list. Default to ’width: 150px;
 height: 26px’.
--  "useLabels" : Optional. Boolean. Use labels instead of id ? Default to
-TRUE.
+-  "useLabels" : Optional. Boolean. Use labels instead of id ? Default to TRUE.
 -  "main" : Optional. Default to "Select by id"
-selectedBy : Custom option. Character or a named list. Add a multiple selection based on
-column of node data.frame creating an HTML select element. Not available for
-DOT and Gephi.
+selectedBy : Custom option. Character or a named list. Add a multiple selection based on column of node data.frame creating an HTML select element. Not available for DOT and Gephi.
 70 visOptions
 -  "variable" : Character. Column name of selection variable.
 -  "values : Optional. Vector of possible values. Defaut to all values in nodes
@@ -91,15 +93,20 @@ for adding legend, visOptions for custom option, visLayout & visHierarchicalLayo
 visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
 for animation within shiny, visDocumentation, visEvents, visConfigure ...
 visOptions 71
+
 #### Examples
+
 ```{r}
 nodes <- data.frame(id = 1:15, label = paste("Label", 1:15),
 group = sample(LETTERS[1:3], 15, replace = TRUE))
 edges <- data.frame(from = trunc(runif(15)*(15-1))+1,
 to = trunc(runif(15)*(15-1))+1)
+```
+```{r}
 ###################
 # highlight nearest
 ###################
+
 visNetwork(nodes, edges) %>% visOptions(highlightNearest = TRUE)
 visNetwork(nodes, edges) %>% visOptions(highlightNearest = list(enabled = TRUE, degree = 2))
 # also when hover a node ?
@@ -107,6 +114,8 @@ visNetwork(nodes, edges) %>% visOptions(highlightNearest = list(enabled = TRUE, 
 # don't show nodes/edges
 visNetwork(nodes, edges) %>% visOptions(highlightNearest = list(enabled = TRUE,
 hover = TRUE, hideColor = 'rgba(200,200,200,0)'))
+```
+```{r}
 # Using hierarchical information
 nodes = data.frame(id = 1:6, level = c(1, 2, 3, 3, 4, 2))
 edges = data.frame(from = c(1, 2, 2, 4, 6), to = c(2, 3, 4, 5, 4))
@@ -115,6 +124,8 @@ visOptions(highlightNearest = list(enabled = TRUE, algorithm = "hierarchical"))
 visNetwork(nodes, edges) %>% visHierarchicalLayout() %>% visEdges(arrows = "to") %>%
 visOptions(highlightNearest = list(enabled = TRUE, algorithm = "hierarchical",
 degree = list(from = 0, to = 2)))
+```
+```{r}
 ##########################
 # nodesIdSelection
 ##########################
@@ -131,13 +142,15 @@ nodesIdSelection = list(enabled = TRUE,
 selected = "2", values = c(2:10), useLabels = FALSE))
 # some style
 visNetwork(nodes, edges) %>%
-72 visOptions
 visOptions(highlightNearest = TRUE,
 nodesIdSelection = list(enabled = TRUE, style = 'width: 200px; height: 26px;
 background: #f8f8f8;
 color: darkblue;
 border:none;
 outline:none;'))
+
+```
+```{r}
 ##########################
 # collapse
 ##########################
@@ -154,6 +167,8 @@ visOptions(collapse = list(enabled = TRUE, clusterOptions = list(shape = "square
 # enable / disable open cluster (proxy only) :
 # visEvents(type = "off", doubleClick = "networkOpenCluster")
 # visEvents(type = "on", doubleClick = "networkOpenCluster")
+```
+```{r}
 ##########################
 # selectedBy
 ##########################
@@ -163,6 +178,10 @@ edges <- data.frame(from = trunc(runif(15)*(15-1))+1,
 to = trunc(runif(15)*(15-1))+1)
 visNetwork(nodes, edges) %>%
 visOptions(selectedBy = "group")
+```
+
+
+```{r}
 # add a default value ?
 visNetwork(nodes, edges) %>%
 visOptions(selectedBy = list(variable = "group", selected = "A"))
@@ -171,9 +190,12 @@ visNetwork(nodes, edges) %>%
 visOptions(selectedBy = list(variable = "group",
 selected = "C",
 values = c("A", "C")))
+```
+
+
+```{r}
 # add some style
 visNetwork(nodes, edges) %>%
-visPhysics 73
 visOptions(selectedBy = list(variable = "group", style = 'width: 200px; height: 26px;
 background: #f8f8f8;
 color: darkblue;
@@ -188,6 +210,10 @@ nodes$group <- sample(c("group 1", "group 2", "group 1, group 2, group 3"),
 nrow(nodes), replace = TRUE)
 visNetwork(nodes, edges) %>%
 visOptions(selectedBy = list(variable = "group", multiple = TRUE))
+```
+
+
+```{r}
 ##########################
 # manipulation
 ##########################
@@ -206,6 +232,10 @@ console.info('edit edge')
 }")
 )
 )
+```
+
+
+```{r}
 ##########################
 # collapse
 ##########################
@@ -213,5 +243,6 @@ visNetwork(nodes, edges) %>%
 visEdges(arrows = "to") %>%
 visOptions(collapse = list(enabled = TRUE,
 clusterOptions = list(shape = "square")))
+```
 visPhysics Network visualization Physics options
 74 visPhysics

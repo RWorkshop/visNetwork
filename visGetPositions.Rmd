@@ -1,5 +1,13 @@
+---
+title: "``visGetPositions``: Network visualization getPositions method"
+output: html_document
+---
 
-### ``visGetPositions``: Network visualization getPositions method
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
 
 #### Description
 For use ``getPositions()`` method in a shiny app. For full documentation, have a look at visDocumentation.
@@ -11,7 +19,7 @@ visGetPositions(graph, nodes = NULL, input = paste0(graph$id, "_positions"))
 
 #### Arguments
 * ``graph`` : a visNetworkProxy object nodes : NULL for all nodes (Default), or a vector of nodes id
-* ``input`` : name of shiny input created. Default to paste0(graph$id, "_positions")
+* ``input`` : name of shiny input created. Default to ``paste0(graph$id, "_positions")``
 
 #### Examples
 ```{r}
