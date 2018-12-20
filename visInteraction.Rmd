@@ -23,22 +23,17 @@ tooltipStyle = NULL, zoomView = NULL)
 #### Arguments
 * ``graph`` : a visNetwork object
 * ``dragNodes`` :   Boolean. Default to true. When true, the nodes that are not fixed can be dragged by the user.
-* dragView : Boolean. Default to true. When true, the view can be dragged around by the
-user.
+* dragView : Boolean. Default to true. When true, the view can be dragged around by the user.
 * hideEdgesOnDrag : Boolean. Default to false. When true, the edges are not drawn when dragging the view. This can greatly speed up responsiveness on dragging, improving user experience.
 * hideNodesOnDrag : Boolean. Default to false. When true, the nodes are not drawn when dragging
 the view. This can greatly speed up responsiveness on dragging, improving user
 experience.
-* ``hover`` :   Boolean. Default to false. When true, the nodes use their hover colors when
-the mouse moves over them.
-* hoverConnectedEdges
-: Boolean. Default to true. When true, on hovering over a node, it’s connecting
+* ``hover`` :   Boolean. Default to false. When true, the nodes use their hover colors when the mouse moves over them.
+* hoverConnectedEdges : Boolean. Default to true. When true, on hovering over a node, it’s connecting
 edges are highlighted.
 * ``keyboard`` :   Just a Boolean, or a named list. When true, the keyboard shortcuts are enabled
 with the default settings. For further customization, you can supply an object.
--  "enabled" : Boolean. Default to false. Toggle the usage of the keyboard
-shortcuts. If this option is not defined, it is set to true if any of the properties
-in this object are defined.
+-  "enabled" : Boolean. Default to false. Toggle the usage of the keyboard shortcuts. If this option is not defined, it is set to true if any of the properties in this object are defined.
 -  "speed" : a named list
 – "x" : Number. Default to 1. This defines the speed of the camera
 movement in the x direction when using the keyboard navigation.
@@ -47,28 +42,17 @@ movement in the y direction when using the keyboard navigation.
 – "zoom" : Number. Default to 0.02. This defines the zoomspeed when
 using the keyboard navigation.Number 0.02 This defines the zoomspeed
 when using the keyboard navigation.
--  "bindToWindow" : Boolean. Default to true. If this is true, global keyboard
-events will be used. If it is false, the keyboard events are only used when
-the network is active. It is activated on mouseOver automatically.
+-  "bindToWindow" : Boolean. Default to true. If this is true, global keyboard events will be used. If it is false, the keyboard events are only used when the network is active. It is activated on mouseOver automatically.
 multiselect : Boolean. Default to false. When true, a longheld click (or touch) as well as a
 control-click will add to the selection.
-navigationButtons
-: Boolean. Default to false. When true, navigation buttons are drawn on the
-network canvas. These are HTML buttons and can be completely customized
-using CSS.
-selectable : Boolean. Default to true When true, the nodes and edges can be selected by
-the user.
-selectConnectedEdges
-: Boolean. Default to true. When true, on selecting a node, its connecting edges
-are highlighted.
-tooltipDelay : Number. Default to 300. When nodes or edges have a defined ’title’ field, this
-can be shown as a pop-up tooltip. The tooltip itself is an HTML element that
-can be fully styled using CSS. The delay is the amount of time in milliseconds
+* navigationButtons : Boolean. Default to false. When true, navigation buttons are drawn on the network canvas. These are HTML buttons and can be completely customized using CSS.
+* selectable : Boolean. Default to true When true, the nodes and edges can be selected by the user.
+* selectConnectedEdges: Boolean. Default to true. When true, on selecting a node, its connecting edges are highlighted.
+* tooltipDelay : Number. Default to 300. When nodes or edges have a defined ’title’ field, this can be shown as a pop-up tooltip. The tooltip itself is an HTML element that can be fully styled using CSS. The delay is the amount of time in milliseconds
 it takes before the tooltip is shown.
-tooltipStay : Number. Default to 300. This is the amount of time in milliseconds it takes
-before the tooltip is hidden.
-tooltipStyle : Character. HTML style of tooltip. You must use ’position: fixed;visibility:hidden;’.
-zoomView : Boolean. Default to true. When true, the user can zoom in.
+* tooltipStay : Number. Default to 300. This is the amount of time in milliseconds it takes before the tooltip is hidden.
+* tooltipStyle : Character. HTML style of tooltip. You must use ’position: fixed;visibility:hidden;’.
+* zoomView : Boolean. Default to true. When true, the user can zoom in.
 
 
 #### Examples
@@ -104,17 +88,20 @@ visInteraction(hover = TRUE)
 # navigation button
 visNetwork(nodes, edges) %>%
 visInteraction(navigationButtons = TRUE)
+
 visNetwork(nodes, edges) %>%
 visInteraction(selectConnectedEdges = FALSE)
+
 visNetwork(nodes, edges) %>%
 visInteraction(multiselect = TRUE)
-visNetwork(nodes, edges) %>%
 
+visNetwork(nodes, edges) %>%
 visInteraction(keyboard = TRUE)
 ```
 #### References
 See online documentation http://datastorm-open.github.io/visNetwork/
-See Also
+
+#### See Also
 visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
 for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
 visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
