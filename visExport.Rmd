@@ -1,5 +1,5 @@
 ---
-title: "visExport Network export configuration"
+title: "visExport :  Network export configuration"
 output: html_document
 ---
 ```{r setup, include=FALSE}
@@ -8,14 +8,19 @@ library(visNetwork)
 ```
 
 #### Description
+
 Network export configuration. This function only work within shiny or a web browser.
+
 #### Usage
+
 <pre><code>
 visExport(graph, type = "png", name = "network",
 label = paste0("Export as ", type), background = "#fff",
 float = "right", style = NULL, loadDependencies = TRUE, ...)
 </code></pre>
+
 #### Arguments
+
 * ``graph`` : a visNetwork object
 * ``type`` :   Type of export. One of "png" (default), "jpeg" or "pdf"
 * name : name of imgage, default to "network"
