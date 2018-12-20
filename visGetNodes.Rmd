@@ -9,8 +9,6 @@ library(visNetwork)
 ```
 
 
-
-
 #### Description
 Function to get nodes data, with shiny only.
 
@@ -28,8 +26,7 @@ visGetNodes(graph, input = paste0(graph$id, "_nodes"), addCoordinates = T)
 See online documentation http://datastorm-open.github.io/visNetwork/
 
 #### See Also
-visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
-visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit for animation within shiny, visDocumentation, visEvents, visConfigure ...
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout, visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit for animation within shiny, visDocumentation, visEvents, visConfigure ...
 
 #### Examples
 
