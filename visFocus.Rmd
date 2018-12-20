@@ -1,23 +1,34 @@
 visFocus Network visualization focus method
+
 #### Description
+
 For use focus() method in a shiny app. For full documentation, have a look at visDocumentation.
+
 #### Usage
+
 <pre><code>
 visFocus(graph, id, scale = 2, offset = list(x = 0, y = 0), locked = TRUE,
 animation = list(duration = 1500, easingFunction = "easeInOutQuad"))
 </code></pre>
+
 #### Arguments
+
 * ``graph`` : a visNetworkProxy object
 * id : a node id
 * scale : Optional. Number. The scale is the target zoomlevel. Default value is 2.0.
-* offset : Optional. List. The offset (in DOM units) is how many pixels from the center
-the view is focussed. Default value is list(x = 0, y = 0).
-* locked : Optional. Boolean. Locked denotes whether or not the view remains locked to
-the node once the zoom-in animation is finished. Default value is true.
-* animation : Optional. List. For animation you can define the duration (in milliseconds) and easing function manually. Available are: linear, easeInQuad, easeOutQuad, easeInOutQuad,
-easeInCubic, easeOutCubic, easeInOutCubic, easeInQuart, ease-
-OutQuart, easeInOutQuart, easeInQuint, easeOutQuint, easeInOutQuint. Default
-to list(duration = 1500, easingFunction = "easeInOutQuad")
+* offset : Optional. List. The offset (in DOM units) is how many pixels from the center the view is focussed. Default value is list(x = 0, y = 0).
+* locked : Optional. Boolean. Locked denotes whether or not the view remains locked to the node once the zoom-in animation is finished. Default value is true.
+* animation : Optional. List. For animation you can define the duration (in milliseconds) and easing function manually. Available are: linear, easeInQuad, easeOutQuad, easeInOutQuad, easeInCubic, easeOutCubic, easeInOutCubic, easeInQuart, ease-
+OutQuart, easeInOutQuart, easeInQuint, easeOutQuint, easeInOutQuint. Default to list(duration = 1500, easingFunction = "easeInOutQuad")
+
+
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+```
 
 #### References
 See online documentation http://datastorm-open.github.io/visNetwork/
@@ -27,9 +38,3 @@ for adding legend, visOptions for custom option, visLayout & visHierarchicalLayo
 visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
 for animation within shiny, visDocumentation, visEvents, visConfigure ...
 visGetBoundingBox 23
-#### Examples
-```{r}
-## Not run:
-# have a look to :
-shiny::runApp(system.file("shiny", package = "visNetwork"))
-## End(Not run)
