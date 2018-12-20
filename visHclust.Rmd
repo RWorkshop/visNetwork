@@ -11,9 +11,7 @@ library(visNetwork)
 
 
 #### Description
-Visualize Hierarchical cluster analysis hclust. This function compute distance using dist, and
-Hierarchical cluster analysis using hclust (from stats package or flashClust if installed), and render
-the tree with visNetwork, adding informations. Can also be called on a hclust or dist object.
+Visualize Hierarchical cluster analysis hclust. This function compute distance using dist, and Hierarchical cluster analysis using hclust (from stats package or flashClust if installed), and render the tree with visNetwork, adding informations. Can also be called on a hclust or dist object.
 Needed packages : sparkline (graphics on tooltip), ggraph, igraph, flashClust
 
 #### Usage
@@ -21,14 +19,14 @@ Needed packages : sparkline (graphics on tooltip), ggraph, igraph, flashClust
 visHclust(object, ...)
 ## Default S3 method:
 visHclust(object, ...)
+
 ## S3 method for class 'data.frame'
-visHclust(object, main = "", submain = "",
-footer = "", distColumns = NULL, distMethod = "euclidean",
+visHclust(object, main = "", submain = "", footer = "", distColumns = NULL, distMethod = "euclidean",
 hclustMethod = "complete", cutree = 0, tooltipColumns = 1:ncol(object),
 colorEdges = "black", colorGroups = substr(rainbow(cutree), 1, 7),
 highlightNearest = TRUE, horizontal = FALSE, minNodeSize = 50,
-maxNodeSize = 200, nodesPopSize = TRUE, height = "600px",
-width = "100%", export = TRUE, ...)
+maxNodeSize = 200, nodesPopSize = TRUE, height = "600px", width = "100%", export = TRUE, ...)
+
 ## S3 method for class 'dist'
 visHclust(object, data = NULL, main = "", submain = "",
 footer = "", cutree = 0, hclustMethod = "complete",
@@ -48,7 +46,6 @@ nodesPopSize = TRUE, height = "600px", width = "100%", export = TRUE,
 </code></pre>
 #### Arguments
 * object hclust | dist | data.frame.
-36 visHclust
 * ... Don’t use
 * main Title. See visNetwork
 * submain Subtitle. See visNetwork
@@ -67,11 +64,11 @@ nodesPopSize = TRUE, height = "600px", width = "100%", export = TRUE,
 minNodeSize + maxNodeSize / 2.
 maxNodeSize numeric, in case of nodesPopSize, maximum size of a node. Defaut to 200.
 Else minNodeSize + maxNodeSize / 2.
-nodesPopSize boolean, nodes sizes depends on population ? Default to TRUE.
+* nodesPopSize boolean, nodes sizes depends on population ? Default to TRUE.
 * ``height`` :    character, default to "600px"
 * ``width `` :  character, default to "100%"
 * ``export`` :  boolean, add button for export. Default to TRUE
-data data.frame, data.frame with data. Only for hclust or dist object.
+* data data.frame, data.frame with data. Only for hclust or dist object.
 
 #### Examples
 
