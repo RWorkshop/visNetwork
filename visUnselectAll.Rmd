@@ -1,0 +1,26 @@
+
+visUnselectAll Network visualization unselectAll method
+#### Description
+For use unselectAll() method in a shiny app. For full documentation, have a look at visDocumentation.
+#### Usage
+<pre><code>
+visUnselectAll(graph)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+
+#### Examples
+<pre><code>
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+</code></pre>
+
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
