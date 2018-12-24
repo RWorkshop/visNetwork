@@ -1,0 +1,122 @@
+
+visTree Visualize Recursive Partitioning and Regression Trees (rpart object)
+#### Description
+Visualize Recursive Partitioning and Regression Trees rpart. Have a look to visTreeEditor to edity
+and get back network, or to visTreeModuleServer to use custom tree module in R
+#### Usage
+<pre><code>
+visTree(object, data = NULL, tooltipColumns = if (!is.null(data)) {
+1:ncol(data) } else { NULL }, main = "", submain = "", footer = "",
+direction = "UD", fallenLeaves = FALSE, rules = TRUE,
+simplifyRules = TRUE, shapeVar = "dot", shapeY = "square",
+colorVar = NULL, colorY = NULL, colorEdges = "#8181F7",
+nodesFontSize = 16, edgesFontSize = 14, edgesFontAlign = "horizontal",
+legend = TRUE, legendNodesSize = 22, legendFontSize = 16,
+legendWidth = 0.1, legendNcol = 1, legendPosition = "left",
+nodesPopSize = FALSE, minNodeSize = 15, maxNodeSize = 30,
+highlightNearest = list(enabled = TRUE, degree = list(from = 50000, to = 0),
+hover = FALSE, algorithm = "hierarchical"), collapse = list(enabled = TRUE,
+fit = TRUE, resetHighlight = TRUE, clusterOptions = list(fixed = TRUE, physics
+= FALSE)), updateShape = TRUE, tooltipDelay = 500, digits = 3,
+height = "600px", width = "100%", export = TRUE)
+</code></pre>
+#### Arguments
+object rpart, rpart object
+data data.frame, adding mini-graphics in tooltips using sparkline and tooltipColumns
+?
+tooltipColumns numeric, indice of columns used in tooltip. All by default. So, we add boxplot
+/ pie focus on sub-population vs all population using sparkline package. NULL
+to disable.
+main Title. See visNetwork
+submain Subtitle. See visNetwork
+footer Footer. See visNetwork
+visTree 91
+direction character, The direction of the hierarchical layout. The available options are:
+UD, DU, LR, RL. To simplify: up-down, down-up, left-right, right-left. Default
+UD. See visHierarchicalLayout
+fallenLeaves boolean leaf nodes at the bottom of the graph ? Default to FALSE
+rules boolean, add rules in tooltips ? Default to TRUE
+simplifyRules boolean, simplify rules writing
+shapeVar character, shape for variables nodes See visNodes
+shapeY character, shape for terminal nodes See visNodes
+colorVar character, colors to use or data.frame To set color of variables. 2 columns :
+-  "variable" : names of variables
+-  "color" : colors (in hexa). See examples
+colorY if classification tree : character colors to use or data.frame 2 columns :
+-  "modality" : levels of Y
+-  "color" : colors (in hexa)
+if regression tree : character, 2 colors (min and max, in hexa)
+colorEdges character, color of edges, in hexa. Default to #8181F7
+nodesFontSize numeric, size of labels of nodes. Default to 16
+edgesFontSize numeric, size of labels of edges Default to 14
+edgesFontAlign character, for edges only. Default tp âhorizontalâ. Possible options: âhorizontalâ
+(Default),âtopâ,âmiddleâ,âbottomâ. See visEdges
+legend boolean, add legend ? Default TRUE. visLegend
+legendNodesSize
+numeric, size of nodes in legend. Default to 22
+legendFontSize numeric, size of labels of nodes in legend. Default to 16
+legendWidth numeric, legend width, between 0 and 1. Default 0.1
+legendNcol numeric, number of columns in legend. Default 1
+legendPosition character, one of "left" (Default) or "right"
+nodesPopSize boolean, nodes sizes depends on population ? Default to FALSE
+minNodeSize numeric, in case of nodesPopSize, minimum size of a node. Defaut to 15. Else,
+nodes size is minNodeSize + maxNodeSize / 2
+maxNodeSize numeric, in case of nodesPopSize, maximum size of a node. Defaut to 30.
+Else, nodes size is minNodeSize + maxNodeSize / 2
+highlightNearest
+list, Highlight nearest nodes. See visOptions
+collapse list, collapse or not using double click on a node ? See visOptions
+updateShape boolean, in case of collapse, udpate cluster node shape as terminal node ? Default
+to TRUE
+tooltipDelay numeric, delay for tooltips in millisecond. Default 500
+digits numeric, number of digits. Default to 3
+* ``height`` :    character, default to "600px"
+* ``width `` :  character, default to "100%"
+* ``export`` :  boolean, add export button. Default to TRUE
+92 visTree
+Value
+a visNetwork object
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visTreeEditor, visTreeModuleServer, visNetworkEditor
+#### Examples
+```{r}
+## Not run:
+library(rpart)
+# Basic classification tree
+res <- rpart(Species~., data=iris)
+visTree(res, data = iris, main = "Iris classification Tree")
+# Basic regression tree
+res <- rpart(Petal.Length~., data=iris)
+visTree(res, edgesFontSize = 14, nodesFontSize = 16)
+# Complex tree
+data("solder")
+res <- rpart(Opening~., data = solder, control = rpart.control(cp = 0.00005))
+visTree(res, data = solder, nodesPopSize = TRUE, minNodeSize = 10,
+maxNodeSize = 30, height = "800px")
+# ----- Options
+res <- rpart(Opening~., data = solder, control = rpart.control(cp = 0.005))
+# fallen leaves + align edges label & size
+visTree(res, fallenLeaves = TRUE, height = "500px",
+edgesFontAlign = "middle", edgesFontSize = 20)
+# disable rules in tooltip, and render tooltip faster
+# enable hover highlight
+visTree(res, rules = FALSE, tooltipDelay = 0,
+highlightNearest = list(enabled = TRUE, degree = list(from = 50000, to = 0),
+hover = TRUE, algorithm = "hierarchical"))
+# Change color with data.frame
+colorVar <- data.frame(variable = names(solder),
+color = c("#339933", "#b30000","#4747d1","#88cc00", "#9900ff","#247856"))
+colorY <- data.frame(modality = unique(solder$Opening),
+color = c("#AA00AA", "#CDAD15", "#213478"))
+visTreeEditor 93
+visTree(res, colorEdges = "#000099", colorVar = colorVar, colorY = colorY)
+# Change color with vector
+visTree(res, colorEdges = "#000099",
+colorVar = substring(rainbow(6), 1, 7),
+colorY = c("blue", "green", "orange"))
+# Use visNetwork functions to add more options
+visTree(res) %>%
+visOptions(highlightNearest = TRUE)
+## End(Not run)
