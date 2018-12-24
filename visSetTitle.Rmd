@@ -1,0 +1,35 @@
+
+visSetTitle Set title, subtitle, and footer using visNetworkProxy
+#### Description
+Set title, subtitle, and footer using visNetworkProxy
+#### Usage
+<pre><code>
+  visSetTitle(graph, main = NULL, submain = NULL, footer = NULL)
+</code></pre>
+  #### Arguments
+  * ``graph`` : a visNetworkProxy object
+main : For add a title. Character or a named list.
+-  "text" : Character. Title.
+-  "style" : Optional. Character. HTML style of title.
+-  âhiddenâ : Optional. Boolean. Force title to be hidden
+submain : For add a subtitle. Character or a named list.
+-  "text" : Character. Subtitle.
+-  "style" : Optional. Character. HTML style of submain.
+-  âhiddenâ : Optional. Boolean. Force submain to be hidden
+footer : For add a footer. Character or a named list.
+-  "text" : Character. footer.
+-  "style" : Optional. Character. HTML style of footer.
+-  âhiddenâ : Optional. Boolean. Force footer to be be hidden
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+  See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+```
