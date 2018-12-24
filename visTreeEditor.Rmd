@@ -1,0 +1,25 @@
+
+visTreeEditor Run and edit a visTree, and get back in R
+#### Description
+Needed packages : shiny, rpart, colourpicker, shinyWidgets
+#### Usage
+<pre><code>
+visTreeEditor(data, ...)
+</code></pre>
+#### Arguments
+data rpart or data.drame
+... all arguments except object present in visTreeModuleServer
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visTree, visTreeModuleServer, visNetworkEditor
+#### Examples
+```{r}
+## Not run:
+net <- visTreeEditor(data = iris)
+net <- visTreeEditor(data = rpart(iris), main = "visTree Editor")
+net <- visTreeEditor(data = rpart(iris), tooltip_data = iris,
+94 visUnselectAll
+main = "visTree Editor")
+net
+## End(Not run)
