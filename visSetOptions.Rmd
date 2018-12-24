@@ -1,0 +1,27 @@
+visSetOptions Network visualization full options setter
+#### Description
+Network visualization full options setter. Using this function, you can pass all network options you
+want, respecting the library format rather than use visNodes, visEdges, visGroups.... There is no
+control, so itâs at your own risk !
+#### Usage
+<pre><code>
+visSetOptions(graph, options = NULL)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+options : a named list with all options you want to add to your network.
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+#### Examples
+```{r}
+nodes <- data.frame(id = 1:3)
+edges <- data.frame(from = c(1,2), to = c(1,3))
+# using visNetwork functions
+visNetwork(nodes, edges) %>% visNodes(shape = "square", color = "red") %>%
+visEdges(arrows = "to")
+# directly use visSetOptions
+visNetwork(nodes, edges) %>%
+visSetOptions(options = list(nodes = list(shape = "square", color = "red"),
+edges = list(arrows = "to")))
+```
+
