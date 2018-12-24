@@ -1,0 +1,132 @@
+
+visNetwork-treeModule Module shiny for visualize and customize a rpart tree
+#### Description
+Needed packages : shiny, rpart, colourpicker, shinyWidgets, sparkline
+#### Usage
+<pre><code>
+visTreeModuleServer(input, output, session, data, tooltip_data = NULL,
+tooltipColumns = "", main = "", submain = "", footer = "",
+direction = "UD", fallenLeaves = FALSE, rules = TRUE,
+simplifyRules = TRUE, shapeVar = "dot", shapeY = "square",
+colorVar = NULL, colorY = NULL, colorEdges = "#8181F7",
+nodesFontSize = 16, edgesFontSize = 14, edgesFontAlign = "horizontal",
+visNetwork-treeModule 59
+legend = TRUE, legendNodesSize = 22, legendFontSize = 16,
+legendWidth = 0.1, legendNcol = 1, legendPosition = "left",
+nodesPopSize = FALSE, minNodeSize = 15, maxNodeSize = 30,
+highlightNearest = list(enabled = TRUE, degree = list(from = 50000, to = 0),
+hover = FALSE, algorithm = "hierarchical"), collapse = list(enabled = TRUE,
+fit = TRUE, resetHighlight = TRUE, clusterOptions = list(fixed = TRUE, physics
+= FALSE)), updateShape = TRUE, tooltipDelay = 500, digits = 3,
+height = 650, width = "100%", export = TRUE)
+visTreeModuleUI(id, rpartParams = TRUE, visTreeParams = TRUE,
+quitButton = FALSE)
+</code></pre>
+#### Arguments
+input list shiny input
+output list, shiny output
+session list, shiny session
+data reactive, a data.frame or a rpart result. Must be a reactive object
+tooltip_data reactive, a data.frame. if data is a rpart, data.frame used to build tree in
+order to plot sparkline
+tooltipColumns numeric, indice of columns used in tooltip. All by default. So, we add boxplot
+/ pie focus on sub-population vs all population using sparkline package. NULL
+to disable.
+main Title. See visNetwork
+submain Subtitle. See visNetwork
+footer Footer. See visNetwork
+direction character, The direction of the hierarchical layout. The available options are:
+UD, DU, LR, RL. To simplify: up-down, down-up, left-right, right-left. Default
+UD. See visHierarchicalLayout
+fallenLeaves boolean leaf nodes at the bottom of the graph ? Default to FALSE
+rules boolean, add rules in tooltips ? Default to TRUE
+simplifyRules boolean, simplify rules writing
+shapeVar character, shape for variables nodes See visNodes
+shapeY character, shape for terminal nodes See visNodes
+colorVar character, colors to use or data.frame To set color of variables. 2 columns :
+-  "variable" : names of variables
+-  "color" : colors (in hexa). See examples
+colorY if classification tree : character colors to use or data.frame 2 columns :
+-  "modality" : levels of Y
+-  "color" : colors (in hexa)
+if regression tree : character, 2 colors (min and max, in hexa)
+colorEdges character, color of edges, in hexa. Default to #8181F7
+60 visNetwork-treeModule
+nodesFontSize numeric, size of labels of nodes. Default to 16
+edgesFontSize numeric, size of labels of edges Default to 14
+edgesFontAlign character, for edges only. Default tp âhorizontalâ. Possible options: âhorizontalâ
+(Default),âtopâ,âmiddleâ,âbottomâ. See visEdges
+legend boolean, add legend ? Default TRUE. visLegend
+legendNodesSize
+numeric, size of nodes in legend. Default to 22
+legendFontSize numeric, size of labels of nodes in legend. Default to 16
+legendWidth numeric, legend width, between 0 and 1. Default 0.1
+legendNcol numeric, number of columns in legend. Default 1
+legendPosition character, one of "left" (Default) or "right"
+nodesPopSize boolean, nodes sizes depends on population ? Default to FALSE
+minNodeSize numeric, in case of nodesPopSize, minimum size of a node. Defaut to 15. Else,
+nodes size is minNodeSize + maxNodeSize / 2
+maxNodeSize numeric, in case of nodesPopSize, maximum size of a node. Defaut to 30.
+Else, nodes size is minNodeSize + maxNodeSize / 2
+highlightNearest
+list, Highlight nearest nodes. See visOptions
+collapse list, collapse or not using double click on a node ? See visOptions
+updateShape boolean, in case of collapse, udpate cluster node shape as terminal node ? Default
+to TRUE
+tooltipDelay numeric, delay for tooltips in millisecond. Default 500
+digits numeric, number of digits. Default to 3
+* ``height`` :    character, default to "600px"
+* ``width `` :  character, default to "100%"
+* ``export`` :  boolean, add export button. Default to TRUE
+id character id of module, linked to visTreeModuleServer
+rpartParams boolean, add tabs for rpart parameters (in case of data.frame in input)
+visTreeParams boolean, add tabs for visTree parameters. Default to TRUE. Force to TRUE if
+rpartParams
+quitButton boolean, add a button to quit module and get back network in R ?
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+#### Examples
+```{r}
+## Not run:
+require(rpart)
+# simple module editor on rpart
+visNetworkEditor 61
+data <- iris
+shiny::shinyApp(ui = shiny::fluidPage(
+visTreeModuleUI(id = "id1", rpartParams = FALSE, visTreeParams = FALSE)),
+server = function(input, output, session) {
+shiny::callModule(visTreeModuleServer, "id1", data = shiny::reactive(rpart(data)))
+})
+# full module editor on rpart + data.frame for sparkline
+data <- iris
+shiny::shinyApp(ui = shiny::fluidPage(
+visTreeModuleUI(id = "id1", rpartParams = FALSE, visTreeParams = TRUE)),
+server = function(input, output, session) {
+shiny::callModule(visTreeModuleServer, "id1", data = shiny::reactive(rpart(data)),
+tooltip_data = data)
+})
+# module on data.frame
+shiny::shinyApp(ui = shiny::fluidPage(visTreeModuleUI(id = "id1",
+rpartParams = TRUE)),
+server = function(input, output, session) {
+shiny::callModule(visTreeModuleServer, "id1", data = shiny::reactive(data))
+})
+# multiple modules
+shiny::shinyApp(ui =
+navbarPage("Menu",shiny::tabPanel(
+"tt1",shiny::fluidPage(visTreeModuleUI(id = "id1",
+rpartParams = TRUE,
+visTreeParams = TRUE))
+),
+shiny::tabPanel(
+"tt2",shiny::fluidPage(visTreeModuleUI(id = "id2",
+rpartParams = FALSE,
+visTreeParams = FALSE)))
+),
+server = function(input, output, session) {
+shiny::callModule(visTreeModuleServer, "id1", data = shiny::reactive(iris))
+shiny::callModule(visTreeModuleServer, "id2", data = shiny::reactive(rpart(iris)))
+})
+## End(Not run)
+```
+
