@@ -1,0 +1,24 @@
+
+visStorePositions Method storePositions, with shiny only.
+#### Description
+Method storePositions, with shiny only. Put the X and Y positions of all nodes into that dataset.
+#### Usage
+<pre><code>
+visStorePositions(graph)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+90 visTree
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
