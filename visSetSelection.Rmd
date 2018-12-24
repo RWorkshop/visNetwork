@@ -1,0 +1,28 @@
+visSetSelection Function to select edge(s) / node(s) from network, with shiny only.
+#### Description
+Function to select edge(s) / node(s) from network, with shiny only.
+#### Usage
+<pre><code>
+visSetSelection(graph, nodesId = NULL, edgesId = NULL, unselectAll = TRUE,
+highlightEdges = TRUE, clickEvent = TRUE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+* ``nodesId`` : vector of id, nodes(s) to select
+* ``edgesId`` : vector of id, edges(s) to select
+* ``unselectAll`` : Boolean. Unselect all nodes & edges before current selection ? Default to TRUE
+* ``highlightEdges`` : Boolean. highlight Edges also ? Default to TRUE
+* ``clickEvent`` : Boolean. Launch click event ? (highlightNearest for example) Default to TRUE
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
