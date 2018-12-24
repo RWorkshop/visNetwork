@@ -1,0 +1,27 @@
+
+visRemoveEdges Function to remove edges from network, with shiny only.
+#### Description
+Function to remove edges from network, with shiny only.
+#### Usage
+<pre><code>
+visRemoveEdges(graph, id, legend = FALSE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetworkProxy object
+* ``id`` : vector of id, edges to remove
+* ``legend`` :   Boolean. Remove edges on legend ? Default to FALSE
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+#### Examples
+```{r}
+## Not run:
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+## End(Not run)
+```
