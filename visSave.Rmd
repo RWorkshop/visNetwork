@@ -1,0 +1,38 @@
+---
+title: "visnetwork"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+visSave Save a a visNetwork object to an HTML file
+#### Description
+Save a a visNetwork object to an HTML file for sharing with others. The HTML can include itâs
+dependencies in an adjacent directory or can bundle all dependencies into the HTML file (via base64
+encoding).
+#### Usage
+<pre><code>
+visSave(graph, file, selfcontained = TRUE, background = "white")
+</code></pre>
+
+#### Arguments
+* ``graph`` : a visNetwork object
+* ``file`` : File to save HTML into. See saveWidget selfcontained : Whether to save the HTML as a single self-contained file (with external resources base64 encoded) or a file with external resources placed in an adjacent directory.
+* ``background`` : Text string giving the html background color of the widget. Defaults to white.
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visExport
+#### Examples
+```{r}
+## Not run:
+nodes <- data.frame(id = 1:3, group = c("B", "A", "B"))
+edges <- data.frame(from = c(1,2), to = c(2,3))
+network <- visNetwork(nodes, edges)
+network
+network %>% visSave(file = "network.html", background = "black")
+# same as
+visSave(network, file = "network.html", background = "black")
+```
