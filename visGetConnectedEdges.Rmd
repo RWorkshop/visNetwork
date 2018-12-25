@@ -11,7 +11,7 @@ library(visNetwork)
 
 
 #### Description
-Method getConnectedEdges, with shiny only. Returns a vector of edgeIds of the edges connected to this node.
+Method ``getConnectedEdges``, with shiny only. Returns a vector of ``edgeIds`` of the edges connected to this node.
 
 #### Usage
 <pre><code>

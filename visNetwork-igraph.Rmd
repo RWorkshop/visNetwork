@@ -1,5 +1,15 @@
+---
+title: "``visNetwork-igraph ``:   Render a visNetwork object from an igraph object"
+output: html_document
+---
 
-visNetwork-igraph Render a visNetwork object from an igraph object
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+
+
 #### Description
 Render a visNetwork object from an igraph object. toVisNetworkData transfrom igraph data to
 visNetwork data. We actually try to keep color, size and label from igraph to visNetwork. visIgraph
@@ -26,14 +36,7 @@ layout will be the same every time.
 layoutMatrix : in case of layout = ’layout.norm’. the ’layout’ argument (A matrix with two or
 three columns, the layout to normalize)
 ... : Adding arguments to layout function
-#### References
-See online documentation http://datastorm-open.github.io/visNetwork/
-See Also
-visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
-for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
-visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
-for animation within shiny, visDocumentation, visEvents, visConfigure ...
-56 visNetwork-igraph
+
 #### Examples
 ```{r}
 ## Not run:
@@ -41,11 +44,15 @@ require(igraph)
 igraph_network <- graph.famous("Walther")
 # get data and plot :
 data <- toVisNetworkData(igraph_network)
+```
+```{r}
 visNetwork(nodes = data$nodes, edges = data$edges)
 # or plot directly
 visIgraph(igraph_network)
 # change layout
 visIgraph(igraph_network, layout = "layout_in_circle")
+```
+```{r}
 # options
 visIgraph(igraph_network, layout = "layout_in_circle",
 physics = FALSE, smooth = TRUE)
@@ -67,6 +74,8 @@ E(g)$label <- LETTERS[1:10]
 E(g)$label.cex = seq(1, 2,length.out = 10)
 E(g)$label.color = "red"
 visIgraph(g)
+```
+```{r}
 # color vertices of the largest component
 largest_comp <- function(graph) {
 cl <- components(graph)
@@ -76,10 +85,21 @@ g <- sample_(gnp(100, 2/100),
 with_vertex_(size = 3, label = ""),
 with_graph_(layout = layout_with_fr)
 )
+```
+
+```{r}
 giant_v <- largest_comp(g)
 V(g)$color <- "blue"
 V(g)[giant_v]$color <- "orange"
-visNetwork-shiny 57
 plot(g)
 visIgraph(g)
 ## End(Not run)
+```
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
+56 visNetwork-igraph

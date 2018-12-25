@@ -22,11 +22,11 @@ visGetPositions(graph, nodes = NULL, input = paste0(graph$id, "_positions"))
 * ``input`` : name of shiny input created. Default to ``paste0(graph$id, "_positions")``
 
 #### Examples
-```{r}
+<pre<code>
 
 shiny::runApp(system.file("shiny", package = "visNetwork"))
 
-```
+</code></pre>
 
 #### References
 See online documentation http://datastorm-open.github.io/visNetwork/
