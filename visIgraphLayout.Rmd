@@ -1,17 +1,25 @@
+---
+title: "``visIgraphLayout``"
+output: html_document
+---
 
-visIgraphLayout Use a igraph layout for compute coordinates & fast rendering
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+ Use a igraph layout for compute coordinates & fast rendering
 #### Description
-Use a igraph layout for compute coordinates and fast rendering. This function affect x and y coordinates
-to nodes data.frame using a igraph layout, and then render network faster with no stabilization.
-We set some options as : visNodes(physics = FALSE) & visEdges(smooth = FALSE) &
-visPhysics(stabilization= FALSE), but you can overwrite them using arguments or by add another
-call after visIgraphLayout
+Use a igraph layout for compute coordinates and fast rendering. This function affect x and y coordinates to nodes data.frame using a igraph layout, and then render network faster with no stabilization.
+We set some options as : visNodes(physics = FALSE) & visEdges(smooth = FALSE) & visPhysics(stabilization= FALSE), but you can overwrite them using arguments or by add another call after visIgraphLayout
+
 #### Usage
 <pre><code>
 visIgraphLayout(graph, layout = "layout_nicely", physics = FALSE,
 smooth = FALSE, type = "square", randomSeed = NULL,
 layoutMatrix = NULL, ...)
 </code></pre>
+
 #### Arguments
 * ``graph`` : a visNetwork object
 * ``layout`` : Character Name of igraph layout function to use. Default to "layout_nicely"
@@ -20,13 +28,7 @@ layoutMatrix = NULL, ...)
 * ``randomSeed`` : Number. The nodes are randomly positioned initially. This means that the settled result is different every time. If you provide a random seed manually, the layout will be the same every time.
 * ``layoutMatrix`` : in case of layout = ’layout.norm’. the ’layout’ argument (A matrix with two or three columns, the layout to normalize)
 * ``...`` : Adding arguments to layout function
-#### References
-See online documentation http://datastorm-open.github.io/visNetwork/
-See Also
-visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
-for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
-visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
-for animation within shiny, visDocumentation, visEvents, visConfigure ...
+
 #### Examples
 ```{r}
 ## Not run:
@@ -38,6 +40,10 @@ to = sample(1:nnodes, nnedges, replace = T))
 # with defaut layout
 visNetwork(nodes, edges) %>%
 visIgraphLayout()
+```
+
+
+```{r}
 # use full space
 visNetwork(nodes, edges) %>%
 visIgraphLayout(type = "full")
@@ -49,12 +55,22 @@ nodesIdSelection = T)
 # keep physics with smooth curves ?
 visNetwork(nodes, edges) %>%
 visIgraphLayout(physics = TRUE, smooth = TRUE)
+```
+
+
+```{r}
+
 # fix radomSeed to keep position
-visNetwork(nodes, edges) %>%
-visInteraction 41
-visIgraphLayout(randomSeed = 123)
+
 visNetwork(nodes, edges) %>%
 visIgraphLayout(randomSeed = 123)
+visNetwork(nodes, edges) %>%
+visIgraphLayout(randomSeed = 123)
+```
+
+
+```{r}
+
 # layout_with_sugiyama
 nodes <- data.frame(id = 1:5)
 edges <- data.frame(from = c(1, 2, 2, 4), to = c(2, 3, 4, 5))
@@ -64,3 +80,10 @@ visNetwork(nodes, edges) %>%
 visIgraphLayout(layout = "layout_with_sugiyama")
 ## End(Not run)
 ```
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...

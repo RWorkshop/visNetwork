@@ -1,43 +1,41 @@
+---
+title: "``visHierarchicalLayout ``"
+output: html_document
+---
 
-visHierarchicalLayout Network visualization Hierarchical layout options
-38 visHierarchicalLayout
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+
 #### Description
 Network visualization Hierarchical layout options. For full documentation, have a look at visDocumentation.
+
 #### Usage
 <pre><code>
 visHierarchicalLayout(graph, enabled = TRUE, levelSeparation = NULL,
 nodeSpacing = NULL, treeSpacing = NULL, blockShifting = NULL,
-edgeMinimization = NULL, parentCentralization = NULL, direction = NULL,
-sortMethod = NULL)
+edgeMinimization = NULL, parentCentralization = NULL, direction = NULL, sortMethod = NULL)
 </code></pre>
+
 #### Arguments
+
 * ``graph`` : a visNetwork object
 * ``enabled`` : Boolean. Default to TRUE when calling this function. Enable or disable the
 hierarchical layout.
 * ``levelSeparation`` : Number. Default to 150. The distance between the different levels.
-* ``nodeSpacing`` : Number. Default to 100. Minimum distance between nodes on the free axis.
-This is only for the initial layout. If you enable physics, the node distance there
-will be the effective node distance.
+* ``nodeSpacing`` : Number. Default to 100. Minimum distance between nodes on the free axis. This is only for the initial layout. If you enable physics, the node distance there will be the effective node distance.
 * ``treeSpacing`` : Number. Default to 200. Distance between different trees (independent networks).
-This is only for the initial layout. If you enable physics, the repulsion
-model will denote the distance between the trees.
-* ``blockShifting`` : Boolean. Default to true. Method for reducing whitespace. Can be used alone or together with edge minimization. Each node will check for whitespace and will shift it’s branch along with it for as far as it can, respecting the nodeSpacing on any level. This is mainly for the initial layout. If you enable physics, they layout will be determined by the physics. This will greatly speed up the
-stabilization time though!
+This is only for the initial layout. If you enable physics, the repulsion model will denote the distance between the trees.
+* ``blockShifting`` : Boolean. Default to true. Method for reducing whitespace. Can be used alone or together with edge minimization. Each node will check for whitespace and will shift it"s branch along with it for as far as it can, respecting the nodeSpacing on any level. This is mainly for the initial layout. If you enable physics, they layout will be determined by the physics. This will greatly speed up the stabilization time though!
   
-* edgeMinimization : Boolean. Default to true. Method for reducing whitespace. Can be used alone or together with block shifting. Enabling block shifting will usually speed up the layout process. Each node will try to move along its free axis to reduce the total length of it’s edges. This is mainly for the initial layout. If you enable physics, they layout will be determined by the physics. This will greatly speed
-up the stabilization time though!
-* parentCentralization : Boolean. Default to true. When true, the parents nodes will be centered again after the the layout algorithm has been finished.
-* direction : String. Default to ’UD’. The direction of the hierarchical layout. The available options are: UD, DU, LR, RL. To simplify: up-down, down-up, left-right, rightleft.
-sortMethod : String. Default to ’hubsize’. The algorithm used to ascertain the levels of the
+* ``edgeMinimization`` : Boolean. Default to true. Method for reducing whitespace. Can be used alone or together with block shifting. Enabling block shifting will usually speed up the layout process. Each node will try to move along its free axis to reduce the total length of it"s edges. This is mainly for the initial layout. If you enable physics, they layout will be determined by the physics. This will greatly speed up the stabilization time though!
+* ``parentCentralization`` : Boolean. Default to true. When true, the parents nodes will be centered again after the the layout algorithm has been finished.
+* ``direction`` : String. Default to "UD". The direction of the hierarchical layout. The available options are: UD, DU, LR, RL. To simplify: up-down, down-up, left-right, rightleft.
+* ``sortMethod`` : String. Default to "hubsize". The algorithm used to ascertain the levels of the
 nodes based on the data. The possible options are: hubsize, directed.
-visIgraphLayout 39
-#### References
-See online documentation http://datastorm-open.github.io/visNetwork/
-See Also
-visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
-for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
-visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
-for animation within shiny, visDocumentation, visEvents, visConfigure ...
+
 #### Examples
 ```{r}
 nodes <- data.frame(id = 1:10)
@@ -47,3 +45,12 @@ visHierarchicalLayout()
 visNetwork(nodes, edges) %>%
 visHierarchicalLayout(direction = "LR")
 ```
+
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+
+#### See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...

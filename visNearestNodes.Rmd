@@ -1,28 +1,39 @@
+---
+title: "``visNearestNodes ``"
+output: html_document
+---
 
-visNearestNodes Function to nearest nodes of a target node, with shiny only.
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
 #### Description
 Function to nearest nodes of a target node, with shiny only.
 #### Usage
 <pre><code>
 visNearestNodes(graph, target, maxpoints = 5, addDist = T)
-visNetwork 49
+
 </code></pre>
+
 #### Arguments
+
 * ``graph`` : a visNetworkProxy object
-target : name of shiny input returning target node id
-maxpoints : Number of nearest nodes. Default to 5
-addDist : If TRUE, add a column named dist_ that contains the distance from the coordinate
-to the point, in pixels.
+* ``target`` : name of shiny input returning target node id
+* ``maxpoints`` : Number of nearest nodes. Default to 5
+* ``addDist`` : If TRUE, add a column named dist_ that contains the distance from the coordinate to the point, in pixels.
+
+#### Examples
+```{r}
+# have a look to :
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+```
+
 #### References
 See online documentation http://datastorm-open.github.io/visNetwork/
-See Also
+
+#### See Also
 visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
 for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
 visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
 for animation within shiny, visDocumentation, visEvents, visConfigure ...
-#### Examples
-```{r}
-## Not run:
-# have a look to :
-shiny::runApp(system.file("shiny", package = "visNetwork"))
-## End(Not run)

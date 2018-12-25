@@ -1,4 +1,13 @@
-visGetSelection Function to get selected edges & nodes, with shiny only.
+---
+title: "``visGetSelection``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
 
 #### Description
 Function to get selected edges & nodes, with shiny only
