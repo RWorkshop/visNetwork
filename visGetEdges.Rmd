@@ -1,4 +1,14 @@
-visGetEdges Function to get edges data, with shiny only.
+---
+title: "``visGetEdges``"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+ Function to get edges data, with shiny only.
 #### Description
 Function to get edges data, with shiny only
 #### Usage
@@ -8,13 +18,7 @@ visGetEdges(graph, input = paste0(graph$id, "_edges"))
 #### Arguments
 * ``graph`` : a visNetworkProxy object
 * ``input`` : name of shiny input created. Default to paste0(graph$id, "_edges")
-#### References
-See online documentation http://datastorm-open.github.io/visNetwork/
-See Also
-visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
-for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
-visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
-for animation within shiny, visDocumentation, visEvents, visConfigure ...
+
 #### Examples
 ```{r}
 ## Not run:
@@ -22,3 +26,10 @@ for animation within shiny, visDocumentation, visEvents, visConfigure ...
 shiny::runApp(system.file("shiny", package = "visNetwork"))
 ## End(Not run)
 ```
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
