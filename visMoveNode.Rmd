@@ -1,24 +1,29 @@
+---
+title: "``visMoveNode  ``:  Network visualization moveNode method"
+output: html_document
+---
 
-visMoveNode Network visualization moveNode method
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+
+
 #### Description
 For use moveNode() method in a shiny app. For full documentation, have a look at visDocumentation.
-48 visNearestNodes
+
 #### Usage
 <pre><code>
 visMoveNode(graph, id, x, y)
 </code></pre>
+
 #### Arguments
 * ``graph`` : a visNetworkProxy object
-id : a node id
-x : Number. x position, in canvas space
-y : Number. y position, in canvas space
-#### References
-See online documentation http://datastorm-open.github.io/visNetwork/
-See Also
-visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
-for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
-visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
-for animation within shiny, visDocumentation, visEvents, visConfigure ...
+* id : a node id
+* x : Number. x position, in canvas space
+* y : Number. y position, in canvas space
+
 #### Examples
 ```{r}
 ## Not run:
@@ -26,3 +31,10 @@ for animation within shiny, visDocumentation, visEvents, visConfigure ...
 shiny::runApp(system.file("shiny", package = "visNetwork"))
 ## End(Not run)
 ```
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
+for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
+visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
+for animation within shiny, visDocumentation, visEvents, visConfigure ...
