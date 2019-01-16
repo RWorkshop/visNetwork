@@ -1,25 +1,36 @@
-visEdges Network visualization edges options
+---
+  title: "``visEdges``: Network visualization edges options"
+output: html_document
+---
+  
+  ```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+
 
 #### Description
 Network visualization edges options. For full documentation, have a look at visDocumentation.
 
 #### Usage
 <pre><code>
-visEdges(graph, title = NULL, value = NULL, label = NULL, length = NULL, width = NULL, dashes = NULL, hidden = NULL, hoverWidth = NULL,
-id = NULL, physics = NULL, selectionWidth = NULL, selfReferenceSize = NULL, labelHighlightBold = NULL, color = NULL,
-font = NULL, arrows = NULL, arrowStrikethrough = NULL, smooth = NULL, shadow = NULL, scaling = NULL, widthConstraint = NULL, chosen = NULL)
+visEdges(graph, title = NULL, value = NULL, label = NULL, length = NULL, width = NULL, dashes = NULL, 
+  hidden = NULL, hoverWidth = NULL, id = NULL, physics = NULL, selectionWidth = NULL, selfReferenceSize = NULL, 
+  labelHighlightBold = NULL, color = NULL, font = NULL, arrows = NULL, arrowStrikethrough = NULL, smooth = NULL,
+  shadow = NULL, scaling = NULL, widthConstraint = NULL, chosen = NULL)
 </code></pre>
 
 #### Arguments
 * ``graph`` : a visNetwork object
-* title : String. Default to undefined. The title is shown in a pop-up when the mouse
+* ``title`` : String. Default to undefined. The title is shown in a pop-up when the mouse
 moves over the edge.
-* value : Number. Default to undefined. When a value is set, the edges" width will be
+* ``value`` : Number. Default to undefined. When a value is set, the edges" width will be
 scaled using the options in the scaling object defined above.
-* label : String. Default to undefined. The label of the edge. HTML does not work in here because the network uses HTML5 Canvas.
-length : Number. Default to undefined. The physics simulation gives edges a spring length. This value can override the length of the spring in rest.
+* ``label`` : String. Default to undefined. The label of the edge. HTML does not work in here because the network uses HTML5 Canvas.
+* ``length`` : Number. Default to undefined. The physics simulation gives edges a spring length. This value can override the length of the spring in rest.
 * ``width`` :   Number. Default to 1. The width of the edge. If value is set, this is not used.
-* dashes : Array or Boolean. Default to false. When true, the edge will be drawn as a dashed line. You can customize the dashes by supplying an Array. Array
+* ``dashes`` : Array or Boolean. Default to false. When true, the edge will be drawn as a dashed line. You can customize the dashes by supplying an Array. Array
 formart: Array of numbers, gap length, dash length, gap length, dash length, ... etc. The array is repeated until the distance is filled. When using dashed lines in
 IE versions older than 11, the line will be drawn straight, not smooth.
 * hidden : Boolean. Default to false. When true, the edge is not drawn. It is part still part of the physics simulation however!
@@ -29,19 +40,57 @@ the user hovers over it with the mouse. If a number is supplied, this number wil
 be added to the width. Because the width can be altered by the value and the
 scaling functions, a constant multiplier or added value may not give the best
 results. To solve this, you can supply a function.
+
+#### Examples
+```{r}
+nodes <- data.frame(id = 1:3)
+edges <- data.frame(from = c(1,2), to = c(1,3))
+# arrows
+visNetwork(nodes, edges) %>% visEdges(arrows = 'from')
+visNetwork(nodes, edges) %>% visEdges(arrows = 'to, from')
+visNetwork(nodes, edges) %>%
+visEdges(arrows = list(to = list(enabled = TRUE,
+scaleFactor = 2, type = 'circle')))
+# smooth
+visNetwork(nodes, edges) %>% visEdges(smooth = FALSE)
+visNetwork(nodes, edges) %>% visEdges(smooth = list(enabled = TRUE, type = "diagonalCross"))
+# width
+visNetwork(nodes, edges) %>% visEdges(width = 10)
+# color
+visNetwork(nodes, edges) %>% visEdges(color = list(hover = "green")) %>%
+visInteraction(hover = TRUE)
+visNetwork(nodes, edges) %>% visEdges(color = "red")
+visNetwork(nodes, edges) %>% visEdges(color = list(color = "red", highlight = "yellow"))
+# shadow
+visNetwork(nodes, edges) %>% visEdges(shadow = TRUE)
+visNetwork(nodes, edges) %>% visEdges(shadow = list(enabled = TRUE, size = 5))
+# dashes
+# globally
+visNetwork(nodes, edges) %>% visEdges(dashes = TRUE)
+# set configuration individualy
+# have to use specific notation...
+nodes <- data.frame(id = 1:3)
+edges <- data.frame(from = c(1,2), to = c(1,3),
+dashes = c("[10,10,2,2]", "false"))
+visNetwork(nodes, edges)
+edges <- data.frame(from = c(1,2), to = c(1,3),
+dashes = c("[10,10,2,2]", "[2]"))
+visNetwork(nodes, edges)
+
+
+
+```
+
+#### More Options
+
 * id : String. Default to undefined. The id of the edge. The id is optional for edges. When not supplied, an UUID will be assigned to the edge.
-physics : Boolean. Default to true. When true, the edge is part of the physics simulation. When false, it will not act as a spring.
-selection* ``width`` :   Number or Function. Default to 1. The selectionWidth determines the width
-of the edge when the edge is selected. If a number is supplied, this number will
-be added to the width. Because the width can be altered by the value and the
-scaling functions, a constant multiplier or added value may not give the best
-results. To solve this, you can supply a function.
-* selfReferenceSize : Number. Default to false. When the to and from nodes are the same, a circle
-is drawn. This is the radius of that circle.
+* ``physics`` : Boolean. Default to true. When true, the edge is part of the physics simulation. When false, it will not act as a spring.
+* ``selectionwidth`` :   Number or Function. Default to 1. The selectionWidth determines the width of the edge when the edge is selected. If a number is supplied, this number will be added to the width. Because the width can be altered by the value and the scaling functions, a constant multiplier or added value may not give the best results. To solve this, you can supply a function.
+* selfReferenceSize : Number. Default to false. When the to and from nodes are the same, a circle is drawn. This is the radius of that circle.
 visEdges 13
 * labelHighlightBold : Boolean. Default to true. Determines whether or not the label becomes bold
 when the edge is selected.
-color : Named list or String. Default to named list. Color information of the edge
+* ``color`` : Named list or String. Default to named list. Color information of the edge
 in every situation. Can be "rgba(120,32,14,1)", "#97C2FC" (hexa notation on 7
 char without transparency) or "red".
 -  "color" : String. Default to "#848484. The color of the edge when it is
@@ -161,43 +210,5 @@ visNodes for nodes options, visEdges for edges options, visGroups for groups opt
 for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
 visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
 for animation within shiny, visDocumentation, visEvents, visConfigure ...
-16 visEvents
-#### Examples
-```{r}
-nodes <- data.frame(id = 1:3)
-edges <- data.frame(from = c(1,2), to = c(1,3))
-# arrows
-visNetwork(nodes, edges) %>% visEdges(arrows = 'from')
-visNetwork(nodes, edges) %>% visEdges(arrows = 'to, from')
-visNetwork(nodes, edges) %>%
-visEdges(arrows = list(to = list(enabled = TRUE,
-scaleFactor = 2, type = 'circle')))
-# smooth
-visNetwork(nodes, edges) %>% visEdges(smooth = FALSE)
-visNetwork(nodes, edges) %>% visEdges(smooth = list(enabled = TRUE, type = "diagonalCross"))
-# width
-visNetwork(nodes, edges) %>% visEdges(width = 10)
-# color
-visNetwork(nodes, edges) %>% visEdges(color = list(hover = "green")) %>%
-visInteraction(hover = TRUE)
-visNetwork(nodes, edges) %>% visEdges(color = "red")
-visNetwork(nodes, edges) %>% visEdges(color = list(color = "red", highlight = "yellow"))
-# shadow
-visNetwork(nodes, edges) %>% visEdges(shadow = TRUE)
-visNetwork(nodes, edges) %>% visEdges(shadow = list(enabled = TRUE, size = 5))
-# dashes
-# globally
-visNetwork(nodes, edges) %>% visEdges(dashes = TRUE)
-# set configuration individualy
-# have to use specific notation...
-nodes <- data.frame(id = 1:3)
-edges <- data.frame(from = c(1,2), to = c(1,3),
-dashes = c("[10,10,2,2]", "false"))
-visNetwork(nodes, edges)
-edges <- data.frame(from = c(1,2), to = c(1,3),
-dashes = c("[10,10,2,2]", "[2]"))
-visNetwork(nodes, edges)
 
 
-
-```
