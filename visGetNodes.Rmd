@@ -7,8 +7,6 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(visNetwork)
 ```
-
-
 #### Description
 Function to get nodes data, with shiny only.
 
@@ -19,20 +17,18 @@ visGetNodes(graph, input = paste0(graph$id, "_nodes"), addCoordinates = T)
 
 #### Arguments
 * ``graph`` : a visNetworkProxy object
-* ``input`` : name of shiny input created. Default to paste0(graph$id, "_nodes")
+* ``input`` : name of shiny input created. Default to ``paste0(graph$id, "_nodes")``
 * ``addCoordinates`` :   Boolean. Add coordinates to nodes data ? Default to TRUE.
+
+
+#### Examples
+
+<pre><code>
+shiny::runApp(system.file("shiny", package = "visNetwork"))
+</code></pre>
 
 #### References
 See online documentation http://datastorm-open.github.io/visNetwork/
 
 #### See Also
 visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout, visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit for animation within shiny, visDocumentation, visEvents, visConfigure ...
-
-#### Examples
-
-```{r}
-## Not run:
-# have a look to :
-shiny::runApp(system.file("shiny", package = "visNetwork"))
-## End(Not run)
-```
