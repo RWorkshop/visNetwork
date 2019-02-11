@@ -44,19 +44,21 @@ horizontal = FALSE, minNodeSize = 50, maxNodeSize = 200,
 nodesPopSize = TRUE, height = "600px", width = "100%", export = TRUE,
 ...)
 </code></pre>
+
 #### Arguments
-* object hclust | dist | data.frame.
-* ... Don’t use
-* main Title. See visNetwork
-* submain Subtitle. See visNetwork
-* footer Footer. See visNetwork
-* distColumns numeric, indice of columns used for compute distance. If NULL (default), keep all numeric and integer columns. If Not NULL, keep only numeric and integer columns
-* distMethod character, the distance measure to be used for dist function. Default to ’euclidean’.
+
+* ``object`` hclust | dist | data.frame.
+* ``...``: Don’t use
+* ``main``: Title. See visNetwork
+* ``submain``: Subtitle. See visNetwork
+* ``footer``: Footer. See visNetwork
+* ``distColumns``: numeric, indice of columns used for compute distance. If NULL (default), keep all numeric and integer columns. If Not NULL, keep only numeric and integer columns
+* ``distMethod``: character, the distance measure to be used for dist function. Default to ’euclidean’.
 * hclustMethod character, the agglomeration method to be used for hclust function. Default to ’complete’.
 * ``cutree`` :   numeric or integer, desired number of groups. Default to 0.
-* tooltipColumns numeric, adding mini-graphics in tooltips using sparkline ? Indice of columns used in tooltip. All by default. So, we add boxplot / pie focus on sub-population
-* vs all population using sparkline package. NULL to disable.
-* colorEdges character, color of edges. Default to ’black’.
+* tooltipColumns numeric, adding mini-graphics in tooltips using sparkline ? Indice of columns used in tooltip. All by default. So,`` we add boxplot / pie focus on sub-population
+* ``vs``: all population using sparkline package. NULL to disable.
+* ``colorEdges``: character, color of edges. Default to ’black’.
 * colorGroups character, color for group in hexa ("#00FF00"). Default rainbow.
 * highlightNearest boolean, highlight sub-tree on click ? Default to TRUE.
 * ``horizontal`` :  boolean, default to FALSE
