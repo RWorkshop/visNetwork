@@ -1,4 +1,13 @@
+---
+title: "``visEdges``: Network visualization edges options"
+output: html_document
+---
+ 
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
 visStopSimulation Network visualization stopSimulation method
 #### Description
 For use stopSimulation() method in a shiny app. For full documentation, have a look at visDocumentation.
