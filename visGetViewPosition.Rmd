@@ -1,5 +1,14 @@
 
+---
+title: "``visEdges``: Network visualization edges options"
+output: html_document
+---
+ 
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
 visGetViewPosition 33
 visGetViewPosition Function to get current view position, with shiny only.
 #### Description
