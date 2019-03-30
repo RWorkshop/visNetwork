@@ -1,3 +1,14 @@
+---
+title: "``visEdges``: Network visualization edges options"
+output: html_document
+---
+ 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
 visClusteringOutliers Network visualization clustering options - outliers
 #### Description
 Network visualization clustering options - outliers
