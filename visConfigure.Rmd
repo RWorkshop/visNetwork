@@ -1,4 +1,14 @@
-visConfigure Network visualization configure options
+---
+title: "``visConfigure``  Network visualization configure options"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+
 #### Description
 Network visualization configure options. For full documentation, have a look at visDocumentation.
 #### Usage
@@ -12,20 +22,15 @@ showButton = NULL)
 enabled : Boolean. Default to true. Toggle the configuration interface on or off. This is
 an optional parameter. If left undefined and any of the other properties of this
 object are defined, this will be set to true.
-filter : String, Array, Boolean, Function. Default to true. When a boolean, true gives
-you all options, false will not show any. If a string is supplied, any combination
+* filter : String, Array, Boolean, Function. Default to true. When a boolean, true gives you all options, false will not show any. If a string is supplied, any combination
 of the following is allowed: nodes, edges, layout, interaction, manipulation,
 physics, selection, renderer. Feel free to come up with a fun seperating character.
-Finally, when supplied an array of strings, any of the previously mentioned fields
-are accepted.
+Finally, when supplied an array of strings, any of the previously mentioned fields are accepted.
 container : DOM element. This allows you to put the configure list in another HTML
 container than below the network.
-showButton : Boolean. Default to true. Show the generate options button at the bottom of
-the configurator.
-#### References
-See online documentation http://datastorm-open.github.io/visNetwork/
-See Also
-visConfigure, visTree, visNetworkEditor
+* showButton : Boolean. Default to true. Show the generate options button at the bottom of the configurator.
+
+
 #### Examples
 ```{r}
 ## Not run:
@@ -40,3 +45,8 @@ custom_network <- visNetworkEditor(object = network, filter = "nodes,edges")
 custom_network
 ## End(Not run)
 ```
+
+#### References
+See online documentation http://datastorm-open.github.io/visNetwork/
+See Also
+visConfigure, visTree, visNetworkEditor
