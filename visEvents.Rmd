@@ -1,4 +1,12 @@
-visEvents Network visualization events
+---
+title: "``visEvents `` Network visualization events"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
 
 #### Description
 Network visualization events. For full documentation, have a look at visDocumentation. Use
@@ -22,13 +30,11 @@ animationFinished = NULL)
 * ``type`` :   Character. "on" (Default) to full listener, "once" to set an event listener only
 once, or "off" to disable a listener.
 click : Fired when the user clicks the mouse or taps on a touchscreen device.
-doubleClick : Fired when the user double clicks the mouse or double taps on a touchscreen
+* doubleClick : Fired when the user double clicks the mouse or double taps on a touchscreen
 device. Since a double click is in fact 2 clicks, 2 click events are fired, followed
-by a double click event. If you do not want to use the click events if a double
-click event is fired, just check the time between click events before processing
+by a double click event. If you do not want to use the click events if a double click event is fired, just check the time between click events before processing
 them.
-oncontext : Fired when the user click on the canvas with the right mouse button. The right
-mouse button does not select by default. You can use the method getNodeAt to
+* oncontext : Fired when the user click on the canvas with the right mouse button. The right mouse button does not select by default. You can use the method getNodeAt to
 select the node if you want.
 hold : Fired when the user clicks and holds the mouse or taps and holds on a touchscreen
 device. A click event is also fired in this case.
