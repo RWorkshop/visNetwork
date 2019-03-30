@@ -1,4 +1,13 @@
+---
+title: "``visEdges``: Network visualization edges options"
+output: html_document
+---
+ 
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
 visStorePositions Method storePositions, with shiny only.
 #### Description
 Method storePositions, with shiny only. Put the X and Y positions of all nodes into that dataset.
