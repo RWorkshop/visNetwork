@@ -1,4 +1,13 @@
+---
+title: "``visEdges``: Network visualization edges options"
+output: html_document
+---
+ 
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
 visRemoveEdges Function to remove edges from network, with shiny only.
 #### Description
 Function to remove edges from network, with shiny only.
