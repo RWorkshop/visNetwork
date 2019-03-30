@@ -1,3 +1,13 @@
+---
+title: "``visEdges``: Network visualization edges options"
+output: html_document
+---
+ 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
 
 visNetwork-treeModule Module shiny for visualize and customize a rpart tree
 #### Description
@@ -9,7 +19,7 @@ tooltipColumns = "", main = "", submain = "", footer = "",
 direction = "UD", fallenLeaves = FALSE, rules = TRUE,
 simplifyRules = TRUE, shapeVar = "dot", shapeY = "square",
 colorVar = NULL, colorY = NULL, colorEdges = "#8181F7",
-nodesFontSize = 16, edgesFontSize = 14, edgesFontAlign = "horizontal",
+  nodesFontSize = 16, edgesFontSize = 14, edgesFontAlign = "horizontal",
 visNetwork-treeModule 59
 legend = TRUE, legendNodesSize = 22, legendFontSize = 16,
 legendWidth = 0.1, legendNcol = 1, legendPosition = "left",
