@@ -1,0 +1,44 @@
+---
+title: "``visClusteringByColor ``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+visClusteringByColor Network visualization clustering options - by color
+#### Description
+Network visualization clustering options - by color.
+#### Usage
+<pre><code>
+visClusteringByColor(graph, colors, label = "Cluster on color : ",
+shape = "database", force = FALSE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+* ``colors`` : Character/vector. colors we want to cluster
+*``label`` : Character. Label put before value(s). See example
+*``shape`` : Character.Shape of cluster(s) if different shapes between nodes or force = T. "database" per default
+force : If force = FALSE, Set shape of nodes if all equal, else directly defaut shape
+#### Examples
+```{r}
+set.seed(124)
+nodes <- data.frame(id = 1:10, color = c(rep("blue", 6), rep("red", 3), rep("green", 1)))
+edges <- data.frame(from = round(runif(6)*10), to = round(runif(6)*10))
+visNetwork(nodes, edges) %>%
+visClusteringByColor(colors = c("blue"))
+nodes <- data.frame(id = 1:10, label = paste("Label", 1:10),
+group = sample(c("A", "B"), 10, replace = TRUE))
+edges <- data.frame(from = c(2,5,10), to = c(1,2,10))
+visNetwork(nodes, edges) %>%
+visGroups(groupname = "A", color = "red", shape = "square") %>%
+visGroups(groupname = "B", color = "yellow", shape = "triangle") %>%
+visClusteringByColor(colors = c("red"), label = "With color ") %>%
+visClusteringByGroup(groups = c("B"), label = "Group : ") %>%
+visLegend()
+visNetwork(nodes, edges) %>%
+visGroups(groupname = "A", color = "red", shape = "triangle") %>%
+visGroups(groupname = "B", color = "yellow", shape = "triangle") %>%
+visClusteringByGroup(groups = c("A","B")) %>%
+visLegend()
+```
