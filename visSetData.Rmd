@@ -1,5 +1,5 @@
 ---
-title: "``visEdges``: Network visualization edges options"
+title: "`` visSetData``: Network visualization setData method``"
 output: html_document
 ---
  
@@ -8,18 +8,22 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(visNetwork)
 ```
-visSetData Network visualization setData method
+
 #### Description
-For use setData() method in a shiny app. For full documentation, have a look at visDocumentation.
+
+For use ``setData()`` method in a shiny app. For full documentation, have a look at visDocumentation.
+
 #### Usage
+
 <pre><code>
 visSetData(graph, nodes = NULL, edges = NULL)
 </code></pre>
+
 #### Arguments
+
 * ``graph`` : a visNetworkProxy object
-nodes : data.frame with nodes informations. Needed at least column "id". See visNodes
-* ``edges`` :  data.frame with edges informations. Needed at least columns "from" and "to".
-See visEdges
+* ``nodes`` : data.frame with nodes informations. Needed at least column "id". See visNodes
+* ``edges`` : data.frame with edges informations. Needed at least columns "from" and "to". See visEdges
 
 #### Examples
 ```{r}
@@ -30,8 +34,3 @@ shiny::runApp(system.file("shiny", package = "visNetwork"))
 
 #### References
 See online documentation http://datastorm-open.github.io/visNetwork/
-See Also
-visNodes for nodes options, visEdges for edges options, visGroups for groups options, visLegend
-for adding legend, visOptions for custom option, visLayout & visHierarchicalLayout for layout,
-visPhysics for control physics, visInteraction for interaction, visNetworkProxy & visFocus & visFit
-for animation within shiny, visDocumentation, visEvents, visConfigure ...
