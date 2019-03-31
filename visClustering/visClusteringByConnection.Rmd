@@ -1,0 +1,35 @@
+---
+title: "``visClusteringByConnection``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+
+Network visualization clustering options - by node id
+#### Description
+Network visualization clustering options - by node id
+
+#### Usage
+
+<pre><code>
+visClusteringByConnection(graph, nodes)
+visClusteringByGroup 7
+</code></pre>
+
+#### Arguments
+
+* ``graph`` : a visNetwork object
+* ``nodes`` : Character/vector. id of nodes we want to cluster
+
+#### Examples
+
+```{r}
+set.seed(124)
+nodes <- data.frame(id = 1:10, color = c(rep("blue", 6), rep("red", 3), rep("green", 1)))
+edges <- data.frame(from = round(runif(6)*10), to = round(runif(6)*10))
+visNetwork(nodes, edges) %>%
+visClusteringByConnection(nodes = 9)
+```
