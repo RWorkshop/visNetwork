@@ -1,0 +1,39 @@
+---
+title: "``visClusteringByHubsize``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+
+
+Network visualization clustering options - by hubsize
+
+#### Description
+
+Network visualization clustering options - by hubsize
+
+#### Usage
+
+<pre><code>
+visClusteringByHubsize(graph, size = NULL)
+</code></pre>
+
+#### Arguments
+* ``graph`` : a visNetwork object
+* size : Integer. This method checks all nodes in the network and those with a equal or
+higher amount of edges than specified with size argument. If size is null (defaut), the size will be determined as the average value plus two standard deviations.
+
+#### Examples
+
+```{r}
+set.seed(124)
+nodes <- data.frame(id = 1:10, color = c(rep("blue", 6), rep("red", 3), rep("green", 1)))
+edges <- data.frame(from = round(runif(6)*10), to = round(runif(6)*10))
+visNetwork(nodes, edges) %>%
+visClusteringByHubsize()
+visNetwork(nodes, edges) %>%
+visClusteringByHubsize(size = 2)
+```
