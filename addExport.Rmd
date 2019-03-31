@@ -1,0 +1,22 @@
+---
+title: "visNetwork"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+
+addExport Add libraries dependencies used in export visExport
+#### Description
+Add libraries dependencies used in export visExport
+#### Usage
+<pre><code>
+addExport(graph, pdf = TRUE)
+</code></pre>
+#### Arguments
+* ``graph`` : a visNetwork object
+pdf : boolean. Add jsPDF or not ?
+
+#### Value
+graph htmlwidget with dependencies attached.
