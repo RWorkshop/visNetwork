@@ -1,0 +1,41 @@
+---
+title: "``visClusteringByGroup``"
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(visNetwork)
+```
+ Network visualization clustering options - by group
+
+#### Description
+Network visualization clustering options - by group.
+#### Usage
+<pre><code>
+visClusteringByGroup(graph, groups, label = "Cluster on group : ",
+shape = "database", color = "grey", force = FALSE, scale_size = TRUE)
+</code></pre>
+
+#### Arguments
+* ``graph`` : a visNetwork object
+* groups : Character/vector. groups we want to cluster
+*``label`` : Character. Label put before value(s). See example
+*``shape`` : Character.Shape of cluster(s) if different shapes between nodes or force = T. "database" per default
+* color : Character. Color of cluster(s) if different colors between nodes or force = T. "grey" per default
+* force : If force = FALSE, Set shape and color of nodes if all equal, else directly
+defaut shape and color
+* scale_size : Set size based on cluster population ? Default to TRUE.
+
+#### Examples
+
+```{r}
+nodes <- data.frame(id = 1:10, label = paste("Label", 1:10),
+group = sample(c("A", "B"), 10, replace = TRUE))
+edges <- data.frame(from = c(2,5,10), to = c(1,2,10))
+visNetwork(nodes, edges) %>%
+visGroups(groupname = "A", color = "red", shape = "database") %>%
+visGroups(groupname = "B", color = "yellow", shape = "triangle") %>%
+visClusteringByGroup(groups = c("B"), label = "Group : ",
+shape = "ellipse", color = "blue", force = TRUE) %>%
+visLegend()
+```
